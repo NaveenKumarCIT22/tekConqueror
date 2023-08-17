@@ -1,13 +1,15 @@
 import React from "react";
 import Board from "./components/Board/Board";
 import { Route, Routes } from "react-router-dom";
+import StatsPane from "./components/Stats/StatsPane";
 
 const App = () => {
   return (
     <div className="wrapper">
-      <Routes>
+      <StatsPane />
+      {/* <Routes>
         <Route path="/board" element={<Board />} />
-      </Routes>
+      </Routes> */}
     </div>
   );
 };
