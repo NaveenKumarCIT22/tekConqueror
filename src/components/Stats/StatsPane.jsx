@@ -26,7 +26,7 @@ const StatsPane = () => {
   };
   return (
     <div className="stats-pane">
-      <h1>Active Participants</h1>
+      <h1 style={{ textAlign: "center" }}>Active Participants</h1>
       <div className="active-team">
         <p className="team-name">{activeParticipant.teamName}</p>
         <ol className="team-members">
