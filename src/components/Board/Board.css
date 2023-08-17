@@ -4,7 +4,7 @@
 
 .board-container {
   margin: 0;
-  background-position: center;
+  background-position: left;
   background-size: 100px;
   font-family: "Oswald", sans-serif;
   font-weight: 400;
@@ -64,7 +64,7 @@ h6 {
   grid-template-columns: 125px repeat(7, 80px) 125px;
   grid-template-rows: 125px repeat(7, 80px) 125px;
   grid-gap: 2px;
-  margin: 50px auto;
+  margin: 50px 0px;
   width: 830px;
   height: 830px;
   background: #080808;
