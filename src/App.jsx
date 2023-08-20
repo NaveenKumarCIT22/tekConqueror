@@ -6,10 +6,9 @@ import StatsPane from "./components/Stats/StatsPane";
 const App = () => {
   return (
     <div className="wrapper">
-      <StatsPane />
-      {/* <Routes>
+      <Routes>
         <Route path="/board" element={<Board />} />
-      </Routes> */}
+      </Routes>
     </div>
   );
 };

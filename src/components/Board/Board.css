@@ -12,6 +12,9 @@
   color: #080808;
   text-transform: uppercase;
 }
+.wrapper {
+  display: flex;
+}
 
 h1,
 h2,

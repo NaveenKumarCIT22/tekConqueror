@@ -44,7 +44,7 @@ const StatsPane = () => {
         <ul className="properties-owned">
           {activeParticipant.propertiesOwned.map((prop) => {
             return (
-              <li className="property" key={crypto.randomUUID()}>
+              <li className="propertyy" key={crypto.randomUUID()}>
                 <div className="property-details">
                   <h3 className="property-name">{prop.propertyName}</h3>
                   <p className="property-value">Price: {prop.propertyValue}</p>
