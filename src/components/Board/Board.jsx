@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Board.css";
 import StatsPane from "../Stats/StatsPane";
 
 const Board = () => {
+  const [position, setPosition] = useState(0);
+
+  function rollDice() {
+    const dice1 = Math.ceil(Math.random() * 6);
+    const dice2 = Math.ceil(Math.random() * 6);
+
+    setPosition((pos) => {
+      return (dice1 + dice2 + pos) % 32;
+    });
+  }
+
+  const element = <div>coin</div>;
   return (
     <div className="wrapper">
       <div className="board-container">
