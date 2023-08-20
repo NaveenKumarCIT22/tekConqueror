@@ -87,10 +87,41 @@ h6 {
 
 .title {
   grid-column: 1/9;
-  grid-row: 4;
+  grid-row: 2;
   font-size: 50px;
   font-weight: 400;
   letter-spacing: 12px;
+}
+
+.card-details {
+  grid-column: 1/5;
+  grid-row: 3/8;
+  border-radius: 15px;
+  background: linear-gradient(315deg, #eddcdc 0%, #bad4f0 74%);
+  padding: 20px;
+  width: 95%;
+  height: 95%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: -20px; */
+}
+
+.dice-container {
+  grid-column: 5/9;
+  grid-row: 3/8;
+  border-radius: 15px;
+  background: linear-gradient(315deg, #eddcdc 0%, #bad4f0 74%);
+  padding: 20px;
+  width: 95%;
+  height: 95%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xxx-large;
+  cursor: pointer;
 }
 
 .community-chest-deck {

@@ -4,10 +4,12 @@ import StatsPane from "../Stats/StatsPane";
 
 const Board = () => {
   const [position, setPosition] = useState(0);
+  const [dice1, setDice1] = useState(0);
+  const [dice2, setDice2] = useState(0);
 
   function rollDice() {
-    const dice1 = Math.ceil(Math.random() * 6);
-    const dice2 = Math.ceil(Math.random() * 6);
+    setDice1(Math.ceil(Math.random() * 6));
+    setDice2(Math.ceil(Math.random() * 6));
 
     setPosition((pos) => {
       return (dice1 + dice2 + pos) % 32;
@@ -21,21 +23,33 @@ const Board = () => {
         <div className="table">
           <div className="board">
             <div className="center">
-              <div className="community-chest-deck">
+              {/* <div className="community-chest-deck">
                 <h2 className="label">Community Chest</h2>
                 <div className="deck" />
-              </div>
+              </div> */}
               <h1 className="title">Cyber Conquest</h1>
-              <div className="chance-deck">
+              <div className="card-details">
+                <h1>
+                  Card
+                  <br />
+                  Details
+                </h1>
+              </div>
+              <div className="dice-container" onClick={rollDice}>
+                <h1>🎲</h1>
+                {dice1 && <p>{dice1}</p>},{dice2 && <p>{dice2}</p>}
+              </div>
+              {/* <div className="chance-deck">
                 <h2 className="label">Chance</h2>
                 <div className="deck" />
-              </div>
+              </div> */}
             </div>
             <div className="space corner go">
               <div className="container">
                 <div className="instructions">
                   Collect $200.00 salary as you pass
                 </div>
+                {position === 0 && element}
                 <div className="go-word">go</div>
               </div>
               <div className="arrow fa fa-long-arrow-left" />
@@ -45,6 +59,7 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar light-blue" />
                   <div className="name">Connecticut Avenue</div>
+                  {position === 7 && element}
                   <div className="price">PRICE $120</div>
                 </div>
               </div>
@@ -52,19 +67,28 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar light-blue" />
                   <div className="name">Vermont Avenue</div>
+                  {position === 6 && element}
                   <div className="price">Price $100</div>
                 </div>
               </div>
               <div className="space chance">
                 <div className="container">
                   <div className="name">Chance</div>
-                  <i className="drawing fa fa-question" />
+                  {position === 5 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-question" />
+                  )}
                 </div>
               </div>
               <div className="space railroad">
                 <div className="container">
                   <div className="name">Reading Railroad</div>
-                  <i className="drawing fa fa-subway" />
+                  {position === 4 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-subway" />
+                  )}
                   <div className="price">Price $200</div>
                 </div>
               </div>
@@ -72,19 +96,24 @@ const Board = () => {
                 <div className="container">
                   <div className="name">Income Tax</div>
                   <div className="diamond" />
-                  <div className="instructions">
-                    Pay 10%
-                    <br />
-                    or
-                    <br />
-                    $200
-                  </div>
+                  {position === 3 ? (
+                    element
+                  ) : (
+                    <div className="instructions">
+                      Pay 10%
+                      <br />
+                      or
+                      <br />
+                      $200
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="space community-chest">
                 <div className="container">
                   <div className="name">Community Chest</div>
-                  <i className="drawing fa fa-cube" />
+                  {position !== 2 && <i className="drawing fa fa-cube" />}
+                  {position === 2 && element}
                   <div className="instructions">
                     Follow instructions on top card
                   </div>
@@ -100,6 +129,7 @@ const Board = () => {
                     <br />
                     Avenue
                   </div>
+                  {position === 1 && element}
                   <div className="price">Price $50</div>
                 </div>
               </div>
@@ -113,7 +143,11 @@ const Board = () => {
                     <div className="bar" />
                     <div className="bar" />
                     <div className="bar" />
-                    <i className="person fa fa-frown-o" />
+                    {position === 8 ? (
+                      element
+                    ) : (
+                      <i className="person fa fa-frown-o" />
+                    )}
                   </div>
                   <div className="name">Jail</div>
                 </div>
@@ -125,13 +159,18 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar orange" />
                   <div className="name">Tennessee Avenue</div>
+                  {position === 15 && element}
                   <div className="price">Price $180</div>
                 </div>
               </div>
               <div className="space community-chest">
                 <div className="container">
                   <div className="name">Community Chest</div>
-                  <i className="drawing fa fa-cube" />
+                  {position === 14 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-cube" />
+                  )}
                   <div className="instructions">
                     Follow instructions on top card
                   </div>
@@ -141,13 +180,18 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar orange" />
                   <div className="name">St. James Avenue</div>
+                  {position === 13 && element}
                   <div className="price">Price $180</div>
                 </div>
               </div>
               <div className="space railroad">
                 <div className="container">
                   <div className="name long-name">Pennsylvania Railroad</div>
-                  <i className="drawing fa fa-subway" />
+                  {position === 12 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-subway" />
+                  )}
                   <div className="price">Price $200</div>
                 </div>
               </div>
@@ -155,13 +199,18 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar purple" />
                   <div className="name">States Avenue</div>
+                  {position === 11 && element}
                   <div className="price">Price $140</div>
                 </div>
               </div>
               <div className="space utility electric-company">
                 <div className="container">
                   <div className="name">Electric Company</div>
-                  <i className="drawing fa fa-lightbulb-o" />
+                  {position === 10 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-lightbulb-o" />
+                  )}
                   <div className="price">Price $150</div>
                 </div>
               </div>
@@ -169,6 +218,7 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar purple" />
                   <div className="name">St. Charles Place</div>
+                  {position === 9 && element}
                   <div className="price">Price $140</div>
                 </div>
               </div>
@@ -176,7 +226,11 @@ const Board = () => {
             <div className="space corner free-parking">
               <div className="container">
                 <div className="name">Free</div>
-                <i className="drawing fa fa-car" />
+                {position === 16 ? (
+                  element
+                ) : (
+                  <i className="drawing fa fa-car" />
+                )}
                 <div className="name">Parking</div>
               </div>
             </div>
@@ -185,19 +239,25 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar red" />
                   <div className="name">Kentucky Avenue</div>
+                  {position === 17 && element}
                   <div className="price">Price $220</div>
                 </div>
               </div>
               <div className="space chance">
                 <div className="container">
                   <div className="name">Chance</div>
-                  <i className="drawing fa fa-question blue" />
+                  {position === 18 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-question blue" />
+                  )}
                 </div>
               </div>
               <div className="space property">
                 <div className="container">
                   <div className="color-bar red" />
                   <div className="name">Indiana Avenue</div>
+                  {position === 19 && element}
                   <div className="price">Price $220</div>
                 </div>
               </div>
@@ -205,13 +265,18 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar red" />
                   <div className="name">Illinois Avenue</div>
+                  {position === 20 && element}
                   <div className="price">Price $200</div>
                 </div>
               </div>
               <div className="space railroad">
                 <div className="container">
                   <div className="name">B &amp; O Railroad</div>
-                  <i className="drawing fa fa-subway" />
+                  {position === 21 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-subway" />
+                  )}
                   <div className="price">Price $200</div>
                 </div>
               </div>
@@ -219,7 +284,11 @@ const Board = () => {
                 <div className="container">
                   <div className="name">Waterworks</div>
                   <div className="space property"></div>
-                  <i className="drawing fa fa-tint" />
+                  {position === 22 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-tint" />
+                  )}
                   <div className="price">Price $120</div>
                 </div>
               </div>
@@ -227,6 +296,7 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar yellow" />
                   <div className="name">Marvin Gardens</div>
+                  {position === 23 && element}
                   <div className="price">Price $280</div>
                 </div>
               </div>
@@ -234,7 +304,11 @@ const Board = () => {
             <div className="space corner go-to-jail">
               <div className="container">
                 <div className="name">Go To</div>
-                <i className="drawing fa fa-gavel" />
+                {position === 24 ? (
+                  element
+                ) : (
+                  <i className="drawing fa fa-gavel" />
+                )}
                 <div className="name">Jail</div>
               </div>
             </div>
@@ -245,13 +319,18 @@ const Board = () => {
                   <div className="name three-line-name">
                     North Carolina Avenue
                   </div>
+                  {position === 25 && element}
                   <div className="price">Price $300</div>
                 </div>
               </div>
               <div className="space community-chest">
                 <div className="container">
                   <div className="name">Community Chest</div>
-                  <i className="drawing fa fa-cube" />
+                  {position === 26 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-cube" />
+                  )}
                   <div className="instructions">
                     Follow instructions on top card
                   </div>
@@ -261,26 +340,36 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar green" />
                   <div className="name long-name">Pennsylvania Avenue</div>
+                  {position === 27 && element}
                   <div className="price">Price $320</div>
                 </div>
               </div>
               <div className="space railroad">
                 <div className="container">
                   <div className="name">Short Line</div>
-                  <i className="drawing fa fa-subway" />
+                  {position === 28 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-subway" />
+                  )}
                   <div className="price">Price $200</div>
                 </div>
               </div>
               <div className="space chance">
                 <div className="container">
                   <div className="name">Chance</div>
-                  <i className="drawing fa fa-question" />
+                  {position === 29 ? (
+                    element
+                  ) : (
+                    <i className="drawing fa fa-question" />
+                  )}
                 </div>
               </div>
               <div className="space property">
                 <div className="container">
                   <div className="color-bar dark-blue" />
                   <div className="name">Park Place</div>
+                  {position === 30 && element}
                   <div className="price">Price $350</div>
                 </div>
               </div>
@@ -288,6 +377,7 @@ const Board = () => {
                 <div className="container">
                   <div className="name">Luxury Tax</div>
                   <div className="drawing fa fa-diamond" />
+                  {position === 31 && element}
                   <div className="instructions">Pay $75.00</div>
                 </div>
               </div>
