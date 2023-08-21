@@ -2,13 +2,18 @@ import React from "react";
 import Board from "./components/Board/Board";
 import { Route, Routes } from "react-router-dom";
 import StatsPane from "./components/Stats/StatsPane";
+import { ParticipantList } from "./contexts/ParticipantContext";
+import AddParticipant from "./components/Participant/AddParticipant";
 
 const App = () => {
   return (
     <div className="wrapper">
-      <Routes>
-        <Route path="/board" element={<Board />} />
-      </Routes>
+      <ParticipantList>
+        <Routes>
+          <Route path="/board" element={<Board />} />
+          <Route path="/" element={<AddParticipant />} />
+        </Routes>
+      </ParticipantList>
     </div>
   );
 };
