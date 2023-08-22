@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Board.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import StatsPane from "../Stats/StatsPane";
 import { useParticipants } from "../../contexts/ParticipantContext";
 
@@ -7,27 +9,20 @@ const Board = () => {
   const [position, setPosition] = useState(0);
   const [dice1, setDice1] = useState(0);
   const [dice2, setDice2] = useState(0);
-  const [, updateState] = React.useState();
-  const { participants } = useParticipants();
-  console.log(participants);
-  function rollDice() {
-    // d1 - temporary dice1 variable
-    const d1 = Math.ceil(Math.random() * 6);
-
-    //d2 - temporary dice2 variable
-    const d2 = Math.ceil(Math.random() * 6);
-
-    setPosition((pos) => {
-      return (d1 + d2 + pos) % 32;
-    });
-
-    setDice1(d1);
-    setDice2(d2);
-  }
-  function getPosition() {
-    return position;
-  }
-  const element = <div>coin</div>;
+  const { rollDice, getPosition } = useParticipants();
+  const element = (
+    <div>
+      <FontAwesomeIcon
+        icon={faFlag}
+        style={{
+          color: "black",
+          fontSize: "1.5rem",
+          position: "absolute",
+          zIndex: 2,
+        }}
+      />
+    </div>
+  );
   return (
     <div className="wrapper">
       <div className="board-container">

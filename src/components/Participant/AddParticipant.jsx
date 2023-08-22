@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParticipants } from "../../contexts/ParticipantContext";
+import "./AddParticipant.css";
 
 function AddParticipant() {
   const { participants, addParticipant } = useParticipants();
@@ -19,37 +20,61 @@ function AddParticipant() {
     console.log("Submitted");
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="teamName"
-        id="teamName"
-        value={teamInfo.teamName}
-        onChange={(e) => {
-          setTeamInfo((prev) => {
-            return {
-              ...prev,
-              teamName: e.target.value,
-            };
-          });
-        }}
-        placeholder="Enter Team Name"
-      />
-      <input
-        type="text"
-        name="member"
-        id="member"
-        value={member}
-        onChange={(e) => {
-          setMember((prev) => {
-            return e.target.value;
-          });
-        }}
-        placeholder="Enter Member "
-      />
-      <button onClick={addMember}>Next</button>{" "}
-      <button type="submit">Submit</button>
-    </form>
+    <div className="participant-container">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="batchNo"
+          id="batchNo"
+          className="participant-elements"
+          value={teamInfo.batchNo}
+          onChange={(e) => {
+            setTeamInfo((prev) => {
+              return {
+                ...prev,
+                batchNo: e.target.value,
+              };
+            });
+          }}
+          placeholder="Enter Batch Number"
+        />
+        <input
+          type="text"
+          name="teamName"
+          id="teamName"
+          className="participant-elements"
+          value={teamInfo.teamName}
+          onChange={(e) => {
+            setTeamInfo((prev) => {
+              return {
+                ...prev,
+                teamName: e.target.value,
+              };
+            });
+          }}
+          placeholder="Enter Team Name"
+        />
+        <input
+          type="text"
+          name="member"
+          id="member"
+          value={member}
+          className="participant-elements"
+          onChange={(e) => {
+            setMember((prev) => {
+              return e.target.value;
+            });
+          }}
+          placeholder="Enter Member "
+        />
+        <button onClick={addMember} className="participant-elements">
+          Next
+        </button>{" "}
+        <button type="submit" className="participant-elements">
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
 
