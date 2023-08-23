@@ -1,0 +1,32 @@
+.card-det {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+#propertyName {
+  font-size: 3em;
+  font-weight: 500;
+}
+
+#category {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+#owner {
+  font-size: 1.7em;
+  font-weight: 500;
+}
+
+#price {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+#cardBtn {
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.3em;
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import StatsPane from "../Stats/StatsPane";
 import { useParticipants } from "../../contexts/ParticipantContext";
+import CardDetails from "../CardDetails/CardDetails";
 
 const Board = () => {
   const [position, setPosition] = useState(0);
@@ -32,14 +33,12 @@ const Board = () => {
                 <div className="deck" />
               </div> */}
               <h1 className="title">Cyber Conquest</h1>
-              <div className="card-details">
-                <h1>
-                  Card
-                  <br />
-                  Details
-                </h1>
-              </div>
-              <div className="dice-container" onClick={rollDice}>
+              <CardDetails />
+              <div
+                className="
+              dice-container"
+                onClick={rollDice}
+              >
                 <h1>🎲</h1>
                 {dice1 && <p>{dice1}</p>},{dice2 && <p>{dice2}</p>}
                 <br />
@@ -104,18 +103,19 @@ const Board = () => {
               </div>
               <div className="space fee income-tax">
                 <div className="container">
-                  <div className="name">
-                    Income Tax
-                    {getPosition() === 3 && element}
-                  </div>
+                  <div className="name">Income Tax</div>
                   <div className="diamond" />
-                  <div className="instructions">
-                    Pay 10%
-                    <br />
-                    or
-                    <br />
-                    $200
-                  </div>
+                  {getPosition() === 3 ? (
+                    element
+                  ) : (
+                    <div className="instructions">
+                      Pay 10%
+                      <br />
+                      or
+                      <br />
+                      $200
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="space community-chest">
@@ -405,11 +405,7 @@ const Board = () => {
               <div className="space fee luxury-tax">
                 <div className="container">
                   <div className="name">Luxury Tax</div>
-                  {getPosition() === 31 ? (
-                    element
-                  ) : (
-                    <div className="drawing fa fa-diamond" />
-                  )}
+                  {getPosition() === 31 && element}
                   <div className="instructions">Pay $75.00</div>
                 </div>
               </div>
