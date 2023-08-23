@@ -21,6 +21,7 @@ function AddParticipant() {
   }
   return (
     <div className="participant-container">
+      <h1>Welcome to Cyber Conquest</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

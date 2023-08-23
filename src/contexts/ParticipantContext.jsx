@@ -6,6 +6,9 @@ export function useParticipants() {
   return useContext(participantContext);
 }
 export function ParticipantList({ children }) {
+  const [position, setPosition] = useState(3);
+  const [dice1, setDice1] = useState(0);
+  const [dice2, setDice2] = useState(0);
   const hexCharacters = [
     0,
     1,
@@ -74,6 +77,8 @@ export function ParticipantList({ children }) {
     addParticipant,
     rollDice,
     getPosition,
+    dice1,
+    dice2,
   };
   return (
     <participantContext.Provider value={value}>

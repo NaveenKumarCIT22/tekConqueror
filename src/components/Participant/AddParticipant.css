@@ -2,10 +2,15 @@
   height: 100vh;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   background-color: #ffffff;
   background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+}
+
+.participant-container > h1 {
+  font-size: 300%;
 }
 
 form {
@@ -21,7 +26,7 @@ form {
 }
 
 .participant-elements {
-  font-size: 5vh;
+  font-size: 200%;
   border-radius: 20px;
   padding: 10px;
 }

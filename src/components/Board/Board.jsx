@@ -7,15 +7,13 @@ import { useParticipants } from "../../contexts/ParticipantContext";
 
 const Board = () => {
   const [position, setPosition] = useState(0);
-  const [dice1, setDice1] = useState(0);
-  const [dice2, setDice2] = useState(0);
-  const { rollDice, getPosition } = useParticipants();
+  const { rollDice, getPosition, dice1, dice2 } = useParticipants();
   const element = (
-    <div>
+    <div className="flag">
       <FontAwesomeIcon
         icon={faFlag}
         style={{
-          color: "black",
+          color: "red",
           fontSize: "1.5rem",
           position: "absolute",
           zIndex: 2,
@@ -45,7 +43,7 @@ const Board = () => {
                 <h1>🎲</h1>
                 {dice1 && <p>{dice1}</p>},{dice2 && <p>{dice2}</p>}
                 <br />
-                <p>{position}</p>
+                <p>{getPosition()}</p>
               </div>
               {/* <div className="chance-deck">
                 <h2 className="label">Chance</h2>
@@ -66,16 +64,20 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar light-blue" />
-                  <div className="name">Connecticut Avenue</div>
-                  {getPosition() === 7 && element}
+                  <div className="name">
+                    Connecticut Avenue
+                    {getPosition() === 7 && element}
+                  </div>
                   <div className="price">PRICE $120</div>
                 </div>
               </div>
               <div className="space property">
                 <div className="container">
                   <div className="color-bar light-blue" />
-                  <div className="name">Vermont Avenue</div>
-                  {getPosition() === 6 && element}
+                  <div className="name">
+                    Vermont Avenue
+                    {getPosition() === 6 && element}
+                  </div>
                   <div className="price">Price $100</div>
                 </div>
               </div>
@@ -102,19 +104,18 @@ const Board = () => {
               </div>
               <div className="space fee income-tax">
                 <div className="container">
-                  <div className="name">Income Tax</div>
+                  <div className="name">
+                    Income Tax
+                    {getPosition() === 3 && element}
+                  </div>
                   <div className="diamond" />
-                  {getPosition() === 3 ? (
-                    element
-                  ) : (
-                    <div className="instructions">
-                      Pay 10%
-                      <br />
-                      or
-                      <br />
-                      $200
-                    </div>
-                  )}
+                  <div className="instructions">
+                    Pay 10%
+                    <br />
+                    or
+                    <br />
+                    $200
+                  </div>
                 </div>
               </div>
               <div className="space community-chest">
@@ -136,8 +137,8 @@ const Board = () => {
                     ranean
                     <br />
                     Avenue
+                    {getPosition() === 1 && element}
                   </div>
-                  {getPosition() === 1 && element}
                   <div className="price">Price $50</div>
                 </div>
               </div>
@@ -166,8 +167,10 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar orange" />
-                  <div className="name">Tennessee Avenue</div>
-                  {getPosition() === 15 && element}
+                  <div className="name">
+                    Tennessee Avenue
+                    {getPosition() === 15 && element}
+                  </div>
                   <div className="price">Price $180</div>
                 </div>
               </div>
@@ -187,8 +190,10 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar orange" />
-                  <div className="name">St. James Avenue</div>
-                  {getPosition() === 13 && element}
+                  <div className="name">
+                    St. James Avenue
+                    {getPosition() === 13 && element}
+                  </div>
                   <div className="price">Price $180</div>
                 </div>
               </div>
@@ -206,8 +211,10 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar purple" />
-                  <div className="name">States Avenue</div>
-                  {getPosition() === 11 && element}
+                  <div className="name">
+                    States Avenue
+                    {getPosition() === 11 && element}
+                  </div>
                   <div className="price">Price $140</div>
                 </div>
               </div>
@@ -225,8 +232,10 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar purple" />
-                  <div className="name">St. Charles Place</div>
-                  {getPosition() === 9 && element}
+                  <div className="name">
+                    St. Charles Place
+                    {getPosition() === 9 && element}
+                  </div>
                   <div className="price">Price $140</div>
                 </div>
               </div>
@@ -246,8 +255,10 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar red" />
-                  <div className="name">Kentucky Avenue</div>
-                  {getPosition() === 17 && element}
+                  <div className="name">
+                    Kentucky Avenue
+                    {getPosition() === 17 && element}
+                  </div>
                   <div className="price">Price $220</div>
                 </div>
               </div>
@@ -264,16 +275,20 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar red" />
-                  <div className="name">Indiana Avenue</div>
-                  {getPosition() === 19 && element}
+                  <div className="name">
+                    Indiana Avenue
+                    {getPosition() === 19 && element}
+                  </div>
                   <div className="price">Price $220</div>
                 </div>
               </div>
               <div className="space property">
                 <div className="container">
                   <div className="color-bar red" />
-                  <div className="name">Illinois Avenue</div>
-                  {getPosition() === 20 && element}
+                  <div className="name">
+                    Illinois Avenue
+                    {getPosition() === 20 && element}
+                  </div>
                   <div className="price">Price $200</div>
                 </div>
               </div>
@@ -303,8 +318,10 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar yellow" />
-                  <div className="name">Marvin Gardens</div>
-                  {getPosition() === 23 && element}
+                  <div className="name">
+                    Marvin Gardens
+                    {getPosition() === 23 && element}
+                  </div>
                   <div className="price">Price $280</div>
                 </div>
               </div>
@@ -326,8 +343,8 @@ const Board = () => {
                   <div className="color-bar green" />
                   <div className="name three-line-name">
                     North Carolina Avenue
+                    {getPosition() === 25 && element}
                   </div>
-                  {getPosition() === 25 && element}
                   <div className="price">Price $300</div>
                 </div>
               </div>
@@ -347,8 +364,10 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar green" />
-                  <div className="name long-name">Pennsylvania Avenue</div>
-                  {getPosition() === 27 && element}
+                  <div className="name long-name">
+                    Pennsylvania Avenue
+                    {getPosition() === 27 && element}
+                  </div>
                   <div className="price">Price $320</div>
                 </div>
               </div>
@@ -376,16 +395,21 @@ const Board = () => {
               <div className="space property">
                 <div className="container">
                   <div className="color-bar dark-blue" />
-                  <div className="name">Park Place</div>
-                  {getPosition() === 30 && element}
+                  <div className="name">
+                    Park Place
+                    {getPosition() === 30 && element}
+                  </div>
                   <div className="price">Price $350</div>
                 </div>
               </div>
               <div className="space fee luxury-tax">
                 <div className="container">
                   <div className="name">Luxury Tax</div>
-                  <div className="drawing fa fa-diamond" />
-                  {getPosition() === 31 && element}
+                  {getPosition() === 31 ? (
+                    element
+                  ) : (
+                    <div className="drawing fa fa-diamond" />
+                  )}
                   <div className="instructions">Pay $75.00</div>
                 </div>
               </div>
