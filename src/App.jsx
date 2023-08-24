@@ -5,6 +5,7 @@ import StatsPane from "./components/Stats/StatsPane";
 import { ParticipantList } from "./contexts/ParticipantContext";
 import AddParticipant from "./components/Participant/AddParticipant";
 import CardDetails from "./components/CardDetails/CardDetails";
+import ModalBox from "./components/ModalBox/ModalBox";
 
 const App = () => {
   // const [data, setData] = useState({});
@@ -27,6 +28,7 @@ const App = () => {
       <ParticipantList>
         <Routes>
           <Route path="/board" element={<Board />} />
+          <Route path="/modal" element={<ModalBox />} />
           <Route path="/" element={<AddParticipant />} />
           <Route path="/card" element={<CardDetails />} />
         </Routes>
