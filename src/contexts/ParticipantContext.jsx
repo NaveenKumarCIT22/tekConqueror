@@ -6,9 +6,10 @@ export function useParticipants() {
   return useContext(participantContext);
 }
 export function ParticipantList({ children }) {
-  const [position, setPosition] = useState(3);
+  const [position, setPosition] = useState(0);
   const [dice1, setDice1] = useState(0);
   const [dice2, setDice2] = useState(0);
+  const [jsonData, setJsonData] = useState();
   const hexCharacters = [
     0,
     1,
@@ -27,6 +28,22 @@ export function ParticipantList({ children }) {
     "E",
     "F",
   ];
+  const minBalance = 500; 
+
+  async function getJson(name){
+    var returnData; 
+    fetch(`${name}.json`, {
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }).then(r=>{
+      return r.json();
+    }).then(dat =>{
+      setJsonData(dat);
+    });
+  }
+
 
   function getCharacter(index) {
     return hexCharacters[index];
@@ -59,15 +76,17 @@ export function ParticipantList({ children }) {
   function getPosition() {
     return position;
   }
-  const [participants, setParticipants] = useState([
+  const participants  =[
     {
       teamName: "Team 1",
       batchNo: 1,
       members: ["member1", "member2"],
       color: generateNewColor(),
       position: 0,
+      balance: 500, 
+      points: 0,
     },
-  ]);
+  ];
 
   const addParticipant = (participant) => {
     participants.push(participant);
@@ -77,8 +96,10 @@ export function ParticipantList({ children }) {
     addParticipant,
     rollDice,
     getPosition,
-    dice1,
+    dice1, 
     dice2,
+    getJson,
+    jsonData,
   };
   return (
     <participantContext.Provider value={value}>

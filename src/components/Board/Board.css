@@ -119,7 +119,7 @@ h6 {
   text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   font-size: xxx-large;
   cursor: pointer;
 }
@@ -448,4 +448,8 @@ h6 {
 .three-line-name {
   position: relative;
   top: 5px;
+}
+
+.dice-image{
+  width: 45%;
 }

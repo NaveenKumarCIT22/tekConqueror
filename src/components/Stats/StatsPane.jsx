@@ -1,5 +1,6 @@
 import React from "react";
 import "./StatsPane.css";
+import { useParticipants } from "../../contexts/ParticipantContext";
 
 const StatsPane = () => {
   const activeParticipant = {

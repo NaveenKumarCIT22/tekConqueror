@@ -2,7 +2,6 @@ import React from "react";
 import "./CardDetails.css";
 
 function CardDetails({ propertyName, category, owner, price }) {
-  console.log(propertyName, category, owner, price);
   return (
     <div className="card-details">
       <div className="card-det">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Board.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlag } from "@fortawesome/free-solid-svg-icons";
@@ -7,8 +7,8 @@ import { useParticipants } from "../../contexts/ParticipantContext";
 import CardDetails from "../CardDetails/CardDetails";
 
 const Board = () => {
-  const [position, setPosition] = useState(0);
-  const { rollDice, getPosition, dice1, dice2 } = useParticipants();
+  const [dataGetter, setDataGetter] = useState({});
+  const { rollDice, getPosition, dice1, dice2, getJson, jsonData } = useParticipants();
   const element = (
     <div className="flag">
       <FontAwesomeIcon
@@ -39,10 +39,8 @@ const Board = () => {
               dice-container"
                 onClick={rollDice}
               >
-                <h1>🎲</h1>
-                {dice1 && <p>{dice1}</p>},{dice2 && <p>{dice2}</p>}
-                <br />
-                <p>{getPosition()}</p>
+                {dice1 !== 0 ?  <img src={`/images/dice${dice1}.png`} alt="" className="dice-image" />:<img src={`/images/dice1.png`} alt="" className="dice-image" /> }
+                {dice2 !== 0 ?  <img src={`/images/dice${dice2}.png`} alt="" className="dice-image" />:<img src={`/images/dice1.png`} alt="" className="dice-image" /> }
               </div>
               {/* <div className="chance-deck">
                 <h2 className="label">Chance</h2>
