@@ -5,33 +5,46 @@ import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import StatsPane from "../Stats/StatsPane";
 import { useParticipants } from "../../contexts/ParticipantContext";
 import CardDetails from "../CardDetails/CardDetails";
+import { useNavigate } from "react-router-dom";
 
 const Board = () => {
-  const [dataGetter, setDataGetter] = useState({});
-  const { rollDice, getPosition, dice1, dice2, getJson, jsonData } = useParticipants();
-  const element = (
-    <div className="flag">
-      <FontAwesomeIcon
-        icon={faFlag}
-        style={{
-          color: "red",
-          fontSize: "1.5rem",
-          position: "absolute",
-          zIndex: 2,
-        }}
-      />
-    </div>
-  );
+  const { rollDice, getPosition, dice1, dice2 } = useParticipants();
+  const [currentParticipants, setCurrentParticipants] = useState();
+  const navigate = useNavigate();
+  const curBatch = window.prompt("Enter the current batch");
+
+  // for getting current participants
+  useEffect(() => {
+    console.log(curBatch);
+    if (curBatch === null) {
+      navigate("/");
+    } else {
+      const jk = JSON.parse(localStorage.getItem(`${curBatch}`));
+      setCurrentParticipants(jk);
+    }
+  }, []);
+  const [curIndex, setCurIndex] = useState(0); // curIndex is for getting current participant
+  console.log(typeof currentParticipants);
+  // const elements = currentParticipants.forEach(b => {
+  //   return (
+  //   <div className="flag">
+  //     <FontAwesomeIcon
+  //       icon={faFlag}
+  //       style={{
+  //         color: "red",
+  //         fontSize: "1.5rem",
+  //         position: "absolute",
+  //         zIndex: 2,
+  //       }}
+  //     />
+  //   </div>
+  // )});
   return (
     <div className="wrapper">
       <div className="board-container">
         <div className="table">
           <div className="board">
             <div className="center">
-              {/* <div className="community-chest-deck">
-                <h2 className="label">Community Chest</h2>
-                <div className="deck" />
-              </div> */}
               <h1 className="title">Cyber Conquest</h1>
               <CardDetails />
               <div
@@ -39,13 +52,33 @@ const Board = () => {
               dice-container"
                 onClick={rollDice}
               >
-                {dice1 !== 0 ?  <img src={`/images/dice${dice1}.png`} alt="" className="dice-image" />:<img src={`/images/dice1.png`} alt="" className="dice-image" /> }
-                {dice2 !== 0 ?  <img src={`/images/dice${dice2}.png`} alt="" className="dice-image" />:<img src={`/images/dice1.png`} alt="" className="dice-image" /> }
+                {dice1 !== 0 ? (
+                  <img
+                    src={`/images/dice${dice1}.png`}
+                    alt=""
+                    className="dice-image"
+                  />
+                ) : (
+                  <img
+                    src={`/images/dice1.png`}
+                    alt=""
+                    className="dice-image"
+                  />
+                )}
+                {dice2 !== 0 ? (
+                  <img
+                    src={`/images/dice${dice2}.png`}
+                    alt=""
+                    className="dice-image"
+                  />
+                ) : (
+                  <img
+                    src={`/images/dice1.png`}
+                    alt=""
+                    className="dice-image"
+                  />
+                )}
               </div>
-              {/* <div className="chance-deck">
-                <h2 className="label">Chance</h2>
-                <div className="deck" />
-              </div> */}
             </div>
             <div className="space corner go">
               <div className="container">

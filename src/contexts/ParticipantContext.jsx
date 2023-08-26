@@ -9,7 +9,6 @@ export function ParticipantList({ children }) {
   const [position, setPosition] = useState(0);
   const [dice1, setDice1] = useState(0);
   const [dice2, setDice2] = useState(0);
-  const [jsonData, setJsonData] = useState();
   const hexCharacters = [
     0,
     1,
@@ -30,19 +29,6 @@ export function ParticipantList({ children }) {
   ];
   const minBalance = 500; 
 
-  async function getJson(name){
-    var returnData; 
-    fetch(`${name}.json`, {
-      headers: {
-        'Content-type': 'application/json',
-        'Accept': 'application/json'
-      }
-    }).then(r=>{
-      return r.json();
-    }).then(dat =>{
-      setJsonData(dat);
-    });
-  }
 
 
   function getCharacter(index) {
@@ -89,7 +75,18 @@ export function ParticipantList({ children }) {
   ];
 
   const addParticipant = (participant) => {
-    participants.push(participant);
+    try {
+      let participants = localStorage.getItem(`${participant.batchNo}`);
+      participant = {...participant, color: generateNewColor(), position: 0, balance: 500, points: 0};
+      participants.push(participant);
+      localStorage.setItem(`${participant.batchNo}`, JSON.stringify(participants));
+    } catch (e) {
+      console.log(e)
+      let participants = [];
+      participant = {...participant, color: generateNewColor(), position: 0, balance: 500, points: 0};
+      participants.push(participant);
+      localStorage.setItem(`${participant.batchNo}`, JSON.stringify(participants)); 
+    }
   };
   const value = {
     participants,
@@ -98,8 +95,6 @@ export function ParticipantList({ children }) {
     getPosition,
     dice1, 
     dice2,
-    getJson,
-    jsonData,
   };
   return (
     <participantContext.Provider value={value}>
