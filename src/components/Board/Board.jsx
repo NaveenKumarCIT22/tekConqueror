@@ -8,37 +8,29 @@ import CardDetails from "../CardDetails/CardDetails";
 import { useNavigate } from "react-router-dom";
 
 const Board = () => {
-  const { rollDice, getPosition, dice1, dice2 } = useParticipants();
-  const [currentParticipants, setCurrentParticipants] = useState();
+  const {
+    rollDice,
+    displayParticipant,
+    dice1,
+    dice2,
+    getCurrentParticipants,
+    participants,
+    getPosition,
+  } = useParticipants();
   const navigate = useNavigate();
-  const curBatch = window.prompt("Enter the current batch");
 
   // for getting current participants
   useEffect(() => {
-    console.log(curBatch);
+    const curBatch = window.prompt("Enter the current batch");
+    console.log("inside useEffect");
     if (curBatch === null) {
       navigate("/");
     } else {
-      const jk = JSON.parse(localStorage.getItem(`${curBatch}`));
-      setCurrentParticipants(jk);
+      const a = getCurrentParticipants(curBatch);
+      console.log(participants);
     }
   }, []);
-  const [curIndex, setCurIndex] = useState(0); // curIndex is for getting current participant
-  console.log(typeof currentParticipants);
-  // const elements = currentParticipants.forEach(b => {
-  //   return (
-  //   <div className="flag">
-  //     <FontAwesomeIcon
-  //       icon={faFlag}
-  //       style={{
-  //         color: "red",
-  //         fontSize: "1.5rem",
-  //         position: "absolute",
-  //         zIndex: 2,
-  //       }}
-  //     />
-  //   </div>
-  // )});
+
   return (
     <div className="wrapper">
       <div className="board-container">
@@ -85,7 +77,14 @@ const Board = () => {
                 <div className="instructions">
                   Collect $200.00 salary as you pass
                 </div>
-                {getPosition() === 0 && element}
+                {participants.map((p) => {
+                  const { position, element } = displayParticipant(p);
+                  if (position === 0) {
+                    return element;
+                  } else {
+                    return <div></div>;
+                  }
+                })}
                 <div className="go-word">go</div>
               </div>
               <div className="arrow fa fa-long-arrow-left" />
@@ -124,11 +123,7 @@ const Board = () => {
               <div className="space railroad">
                 <div className="container">
                   <div className="name">Reading Railroad</div>
-                  {getPosition() === 4 ? (
-                    element
-                  ) : (
-                    <i className="drawing fa fa-subway" />
-                  )}
+
                   <div className="price">Price $200</div>
                 </div>
               </div>

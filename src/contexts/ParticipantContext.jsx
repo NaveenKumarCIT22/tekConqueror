@@ -1,4 +1,15 @@
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import React, { useContext, useState } from "react";
+import { db } from "../firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
 
 const participantContext = React.createContext();
 
@@ -27,9 +38,7 @@ export function ParticipantList({ children }) {
     "E",
     "F",
   ];
-  const minBalance = 500; 
-
-
+  const minBalance = 500;
 
   function getCharacter(index) {
     return hexCharacters[index];
@@ -45,7 +54,7 @@ export function ParticipantList({ children }) {
 
     return hexColorRep;
   }
-  function rollDice() {
+  async function rollDice() {
     // d1 - temporary dice1 variable
     const d1 = Math.ceil(Math.random() * 6);
 
@@ -62,39 +71,64 @@ export function ParticipantList({ children }) {
   function getPosition() {
     return position;
   }
-  const participants  =[
+  const participants = [
     {
       teamName: "Team 1",
       batchNo: 1,
       members: ["member1", "member2"],
       color: generateNewColor(),
-      position: 0,
-      balance: 500, 
+      position: 9,
+      balance: 500,
       points: 0,
     },
   ];
 
-  const addParticipant = (participant) => {
-    try {
-      let participants = localStorage.getItem(`${participant.batchNo}`);
-      participant = {...participant, color: generateNewColor(), position: 0, balance: 500, points: 0};
-      participants.push(participant);
-      localStorage.setItem(`${participant.batchNo}`, JSON.stringify(participants));
-    } catch (e) {
-      console.log(e)
-      let participants = [];
-      participant = {...participant, color: generateNewColor(), position: 0, balance: 500, points: 0};
-      participants.push(participant);
-      localStorage.setItem(`${participant.batchNo}`, JSON.stringify(participants)); 
-    }
+  const addParticipant = async (participant) => {
+    const collectionName = participant.batchNo.toString();
+    participant = {
+      ...participant,
+      color: generateNewColor(),
+      position: 0,
+      balance: 500,
+      points: 0,
+    };
+    await setDoc(doc(db, collectionName, participant.teamName), participant);
+    console.log("doc deleted");
   };
+  const getCurrentParticipants = async (batchNo) => {
+    const a = await getDocs(collection(db, batchNo.toString()));
+
+    a.forEach((docu) => {
+      participants.push(docu.data());
+    });
+  };
+
+  function displayParticipant(p) {
+    const { color, position } = p;
+    const element = (
+      <div className="flag">
+        <FontAwesomeIcon
+          icon={faFlag}
+          style={{
+            color: color,
+            fontSize: "1.5rem",
+            position: position,
+            zIndex: 2,
+          }}
+        />
+      </div>
+    );
+    return { position, element };
+  }
   const value = {
     participants,
     addParticipant,
     rollDice,
     getPosition,
-    dice1, 
+    displayParticipant,
+    dice1,
     dice2,
+    getCurrentParticipants,
   };
   return (
     <participantContext.Provider value={value}>

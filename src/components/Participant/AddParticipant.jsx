@@ -18,11 +18,10 @@ function AddParticipant() {
     e.preventDefault();
     addParticipant(teamInfo);
     setTeamInfo({
-    teamName: "",
-    batchNo: 0,
-    members: [],
-  });
-    console.log("Submitted");
+      teamName: "",
+      batchNo: 0,
+      members: [],
+    });
   }
   return (
     <div className="participant-container">
@@ -73,7 +72,11 @@ function AddParticipant() {
           }}
           placeholder="Enter Member "
         />
-        <button onClick={addMember} className="participant-elements" type="button">
+        <button
+          onClick={addMember}
+          className="participant-elements"
+          type="button"
+        >
           Next
         </button>{" "}
         <button type="submit" className="participant-elements">
