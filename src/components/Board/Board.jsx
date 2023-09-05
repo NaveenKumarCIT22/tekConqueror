@@ -6,30 +6,61 @@ import StatsPane from "../Stats/StatsPane";
 import { useParticipants } from "../../contexts/ParticipantContext";
 import CardDetails from "../CardDetails/CardDetails";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Board = () => {
-  const {
-    rollDice,
-    displayParticipant,
-    dice1,
-    dice2,
-    getCurrentParticipants,
-    participants,
-    getPosition,
-  } = useParticipants();
+  const [dice1, setDice1] = useState(1);
+  const [dice2, setDice2] = useState(1);
+  const [curBatch, setcurBatch] = useState();
+  const [part, setPart] = useState();
+  const { displayParticipant } = useParticipants();
   const navigate = useNavigate();
 
+  function getPosition() {
+    return -20;
+  }
   // for getting current participants
   useEffect(() => {
-    const curBatch = window.prompt("Enter the current batch");
-    console.log("inside useEffect");
+    //btc = temporary current batch
+    const btc = window.prompt("Enter Current Batch Number");
+    setcurBatch(btc);
     if (curBatch === null) {
       navigate("/");
     } else {
-      const a = getCurrentParticipants(curBatch);
-      console.log(participants);
+      axios
+        .post(
+          `/participants`,
+          { batchNo: btc },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+        .then((response) => {
+          setPart(response.data);
+        });
     }
   }, []);
+
+  function rollDice() {
+    console.log("hit");
+    axios
+      .post(
+        "/current",
+        { batchNo: curBatch },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((response) => {
+        setDice1(response.data.dice1);
+        setDice2(response.data.dice2);
+        console.log(response.data);
+      });
+  }
 
   return (
     <div className="wrapper">
@@ -77,14 +108,13 @@ const Board = () => {
                 <div className="instructions">
                   Collect $200.00 salary as you pass
                 </div>
-                {participants.map((p) => {
-                  const { position, element } = displayParticipant(p);
-                  if (position === 0) {
-                    return element;
-                  } else {
-                    return <div></div>;
-                  }
-                })}
+                {part &&
+                  part.map((p) => {
+                    const { position, element } = displayParticipant(p);
+                    if (position === 0) {
+                      return element;
+                    }
+                  })}
                 <div className="go-word">go</div>
               </div>
               <div className="arrow fa fa-long-arrow-left" />
@@ -95,7 +125,15 @@ const Board = () => {
                   <div className="color-bar light-blue" />
                   <div className="name">
                     Connecticut Avenue
-                    {getPosition() === 7 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 7) {
+                          return element;
+                        } else {
+                          return <div></div>;
+                        }
+                      })}
                   </div>
                   <div className="price">PRICE $120</div>
                 </div>
@@ -105,7 +143,13 @@ const Board = () => {
                   <div className="color-bar light-blue" />
                   <div className="name">
                     Vermont Avenue
-                    {getPosition() === 6 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 6) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="price">Price $100</div>
                 </div>

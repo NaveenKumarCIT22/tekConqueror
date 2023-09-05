@@ -5,11 +5,13 @@ import {
   getDoc,
   getDocs,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { db } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlag } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 const participantContext = React.createContext();
 
@@ -61,27 +63,13 @@ export function ParticipantList({ children }) {
     //d2 - temporary dice2 variable
     const d2 = Math.ceil(Math.random() * 6);
 
-    setPosition((pos) => {
-      return (d1 + d2 + pos) % 32;
-    });
-
     setDice1(d1);
     setDice2(d2);
   }
   function getPosition() {
     return position;
   }
-  const participants = [
-    {
-      teamName: "Team 1",
-      batchNo: 1,
-      members: ["member1", "member2"],
-      color: generateNewColor(),
-      position: 9,
-      balance: 500,
-      points: 0,
-    },
-  ];
+  const participants = [];
 
   const addParticipant = async (participant) => {
     const collectionName = participant.batchNo.toString();
@@ -95,29 +83,23 @@ export function ParticipantList({ children }) {
     await setDoc(doc(db, collectionName, participant.teamName), participant);
     console.log("doc deleted");
   };
-  const getCurrentParticipants = async (batchNo) => {
-    const a = await getDocs(collection(db, batchNo.toString()));
-
-    a.forEach((docu) => {
-      participants.push(docu.data());
-    });
-  };
-
+  const elements = [];
   function displayParticipant(p) {
     const { color, position } = p;
     const element = (
-      <div className="flag">
+      <div className="flag" key={crypto.randomUUID()}>
         <FontAwesomeIcon
           icon={faFlag}
           style={{
             color: color,
             fontSize: "1.5rem",
-            position: position,
+            position: "absolute",
             zIndex: 2,
           }}
         />
       </div>
     );
+    elements.push({ position, element });
     return { position, element };
   }
   const value = {
@@ -128,7 +110,6 @@ export function ParticipantList({ children }) {
     displayParticipant,
     dice1,
     dice2,
-    getCurrentParticipants,
   };
   return (
     <participantContext.Provider value={value}>
