@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Board.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import StatsPane from "../Stats/StatsPane";
 import { useParticipants } from "../../contexts/ParticipantContext";
 import CardDetails from "../CardDetails/CardDetails";
@@ -11,20 +9,36 @@ import axios from "axios";
 const Board = () => {
   const [dice1, setDice1] = useState(1);
   const [dice2, setDice2] = useState(1);
+  const [currentParticipant, setCurrentParticipant] = useState();
   const [curBatch, setcurBatch] = useState();
   const [part, setPart] = useState();
   const { displayParticipant } = useParticipants();
   const navigate = useNavigate();
 
   function getPosition() {
-    return -20;
+    return -1;
+  }
+  function getCurrentPlayer() {
+    axios
+      .post(
+        "/current",
+        { batchNo: curBatch },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((r) => {
+        setCurrentParticipant(r.data);
+      });
   }
   // for getting current participants
   useEffect(() => {
     //btc = temporary current batch
     const btc = window.prompt("Enter Current Batch Number");
     setcurBatch(btc);
-    if (curBatch === null) {
+    if (btc === null) {
       navigate("/");
     } else {
       axios
@@ -44,22 +58,23 @@ const Board = () => {
   }, []);
 
   function rollDice() {
-    console.log("hit");
-    axios
-      .post(
-        "/current",
-        { batchNo: curBatch },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
-      .then((response) => {
-        setDice1(response.data.dice1);
-        setDice2(response.data.dice2);
-        console.log(response.data);
-      });
+    getCurrentPlayer();
+    currentParticipant &&
+      axios
+        .post(
+          "/rollDice",
+          { batchNo: curBatch },
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        )
+        .then((response) => {
+          setDice1(response.data.dice1);
+          setDice2(response.data.dice2);
+          console.log(response.data);
+        });
   }
 
   return (
@@ -130,8 +145,6 @@ const Board = () => {
                         const { position, element } = displayParticipant(p);
                         if (position === 7) {
                           return element;
-                        } else {
-                          return <div></div>;
                         }
                       })}
                   </div>
@@ -157,11 +170,13 @@ const Board = () => {
               <div className="space chance">
                 <div className="container">
                   <div className="name">Chance</div>
-                  {getPosition() === 5 ? (
-                    element
-                  ) : (
-                    <i className="drawing fa fa-question" />
-                  )}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 5) {
+                        return element;
+                      }
+                    })}
                 </div>
               </div>
               <div className="space railroad">
@@ -175,24 +190,25 @@ const Board = () => {
                 <div className="container">
                   <div className="name">Income Tax</div>
                   <div className="diamond" />
-                  {getPosition() === 3 ? (
-                    element
-                  ) : (
-                    <div className="instructions">
-                      Pay 10%
-                      <br />
-                      or
-                      <br />
-                      $200
-                    </div>
-                  )}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 3) {
+                        return element;
+                      }
+                    })}
                 </div>
               </div>
               <div className="space community-chest">
                 <div className="container">
                   <div className="name">Community Chest</div>
-                  {getPosition() !== 2 && <i className="drawing fa fa-cube" />}
-                  {getPosition() === 2 && element}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 2) {
+                        return element;
+                      }
+                    })}
                   <div className="instructions">
                     Follow instructions on top card
                   </div>
@@ -207,7 +223,13 @@ const Board = () => {
                     ranean
                     <br />
                     Avenue
-                    {getPosition() === 1 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 1) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="price">Price $50</div>
                 </div>
@@ -222,11 +244,13 @@ const Board = () => {
                     <div className="bar" />
                     <div className="bar" />
                     <div className="bar" />
-                    {getPosition() === 8 ? (
-                      element
-                    ) : (
-                      <i className="person fa fa-frown-o" />
-                    )}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 8) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="name">Jail</div>
                 </div>
@@ -239,7 +263,13 @@ const Board = () => {
                   <div className="color-bar orange" />
                   <div className="name">
                     Tennessee Avenue
-                    {getPosition() === 15 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 15) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="price">Price $180</div>
                 </div>
@@ -247,11 +277,13 @@ const Board = () => {
               <div className="space community-chest">
                 <div className="container">
                   <div className="name">Community Chest</div>
-                  {getPosition() === 14 ? (
-                    element
-                  ) : (
-                    <i className="drawing fa fa-cube" />
-                  )}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 14) {
+                        return element;
+                      }
+                    })}
                   <div className="instructions">
                     Follow instructions on top card
                   </div>
@@ -262,7 +294,11 @@ const Board = () => {
                   <div className="color-bar orange" />
                   <div className="name">
                     St. James Avenue
-                    {getPosition() === 13 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        return position === 13 ? element : "";
+                      })}
                   </div>
                   <div className="price">Price $180</div>
                 </div>
@@ -270,11 +306,13 @@ const Board = () => {
               <div className="space railroad">
                 <div className="container">
                   <div className="name long-name">Pennsylvania Railroad</div>
-                  {getPosition() === 12 ? (
-                    element
-                  ) : (
-                    <i className="drawing fa fa-subway" />
-                  )}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 12) {
+                        return element;
+                      }
+                    })}
                   <div className="price">Price $200</div>
                 </div>
               </div>
@@ -283,7 +321,13 @@ const Board = () => {
                   <div className="color-bar purple" />
                   <div className="name">
                     States Avenue
-                    {getPosition() === 11 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 11) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="price">Price $140</div>
                 </div>
@@ -291,11 +335,13 @@ const Board = () => {
               <div className="space utility electric-company">
                 <div className="container">
                   <div className="name">Electric Company</div>
-                  {getPosition() === 10 ? (
-                    element
-                  ) : (
-                    <i className="drawing fa fa-lightbulb-o" />
-                  )}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 10) {
+                        return element;
+                      }
+                    })}
                   <div className="price">Price $150</div>
                 </div>
               </div>
@@ -304,7 +350,13 @@ const Board = () => {
                   <div className="color-bar purple" />
                   <div className="name">
                     St. Charles Place
-                    {getPosition() === 9 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 9) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="price">Price $140</div>
                 </div>
@@ -313,11 +365,14 @@ const Board = () => {
             <div className="space corner free-parking">
               <div className="container">
                 <div className="name">Free</div>
-                {getPosition() === 16 ? (
-                  element
-                ) : (
-                  <i className="drawing fa fa-car" />
-                )}
+                {part &&
+                  part.map((p) => {
+                    const { position, element } = displayParticipant(p);
+                    if (position === 16) {
+                      return element;
+                    }
+                  })}
+
                 <div className="name">Parking</div>
               </div>
             </div>
@@ -327,7 +382,13 @@ const Board = () => {
                   <div className="color-bar red" />
                   <div className="name">
                     Kentucky Avenue
-                    {getPosition() === 17 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 17) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="price">Price $220</div>
                 </div>
@@ -335,11 +396,13 @@ const Board = () => {
               <div className="space chance">
                 <div className="container">
                   <div className="name">Chance</div>
-                  {getPosition() === 18 ? (
-                    element
-                  ) : (
-                    <i className="drawing fa fa-question blue" />
-                  )}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 18) {
+                        return element;
+                      }
+                    })}
                 </div>
               </div>
               <div className="space property">
@@ -347,7 +410,13 @@ const Board = () => {
                   <div className="color-bar red" />
                   <div className="name">
                     Indiana Avenue
-                    {getPosition() === 19 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 19) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="price">Price $220</div>
                 </div>
@@ -357,7 +426,13 @@ const Board = () => {
                   <div className="color-bar red" />
                   <div className="name">
                     Illinois Avenue
-                    {getPosition() === 20 && element}
+                    {part &&
+                      part.map((p) => {
+                        const { position, element } = displayParticipant(p);
+                        if (position === 20) {
+                          return element;
+                        }
+                      })}
                   </div>
                   <div className="price">Price $200</div>
                 </div>
@@ -365,11 +440,13 @@ const Board = () => {
               <div className="space railroad">
                 <div className="container">
                   <div className="name">B &amp; O Railroad</div>
-                  {getPosition() === 21 ? (
-                    element
-                  ) : (
-                    <i className="drawing fa fa-subway" />
-                  )}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 21) {
+                        return element;
+                      }
+                    })}
                   <div className="price">Price $200</div>
                 </div>
               </div>
@@ -377,11 +454,13 @@ const Board = () => {
                 <div className="container">
                   <div className="name">Waterworks</div>
                   <div className="space property"></div>
-                  {getPosition() === 22 ? (
-                    element
-                  ) : (
-                    <i className="drawing fa fa-tint" />
-                  )}
+                  {part &&
+                    part.map((p) => {
+                      const { position, element } = displayParticipant(p);
+                      if (position === 22) {
+                        return element;
+                      }
+                    })}
                   <div className="price">Price $120</div>
                 </div>
               </div>
@@ -483,7 +562,7 @@ const Board = () => {
           </div>
         </div>
       </div>
-      <StatsPane />
+      <StatsPane currentParticipant />
     </div>
   );
 };

@@ -9,23 +9,9 @@ import ModalBox from "./components/ModalBox/ModalBox";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3000/";
+axios.defaults.withCredentials = true;
 
 const App = () => {
-  // const [data, setData] = useState({});
-  // fetch("testJSON.json", {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Accept: "application/json",
-  //   },
-  // })
-  //   .then((response) => {
-  //     return response.json();
-  //   })
-  //   .then((r) => {
-  //     console.log(r);
-  //     setData(r);
-  //   });
-  // console.log(data);
   return (
     <div className="wrapper">
       <ParticipantList>

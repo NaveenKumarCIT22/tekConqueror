@@ -3,7 +3,7 @@ import { useParticipants } from "../../contexts/ParticipantContext";
 import "./AddParticipant.css";
 
 function AddParticipant() {
-  const { participants, addParticipant } = useParticipants();
+  const { addParticipant } = useParticipants();
   const [teamInfo, setTeamInfo] = useState({
     teamName: "",
     batchNo: 0,
