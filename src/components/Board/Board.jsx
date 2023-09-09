@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Board.css";
 import StatsPane from "../Stats/StatsPane";
 import { useParticipants } from "../../contexts/ParticipantContext";
+import { ModalBox } from "../ModalBox/ModalBox";
 import CardDetails from "../CardDetails/CardDetails";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -79,6 +80,7 @@ const Board = () => {
 
   return (
     <div className="wrapper">
+      <ModalBox />
       <div className="board-container">
         <div className="table">
           <div className="board">
