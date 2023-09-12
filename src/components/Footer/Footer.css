@@ -1,0 +1,45 @@
+.footer-container {
+  display: flex;
+  background-color: rgb(26, 23, 23);
+  /* margin-top: 90vh; */
+  width: 100vw;
+  height: 30vh;
+  justify-content: space-around;
+  /* position: sticky; */
+  color: whitesmoke;
+  text-align: center;
+}
+.sympo-det-container {
+  display: flex;
+  flex-direction: column;
+  width: 45vw;
+  margin: 20px;
+  border-radius: 20px;
+  background: linear-gradient(315deg, #2f2c2c 0%, #3c4146 74%);
+  justify-content: center;
+  align-items: center;
+}
+.devs-det-container {
+  display: flex;
+  flex-direction: column;
+  width: 45vw;
+  margin: 20px;
+  border-radius: 20px;
+  background: linear-gradient(315deg, #2f2c2c 0%, #3c4146 74%);
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  text-decoration: underline;
+  padding-bottom: 5px;
+}
+h2 {
+  padding-top: 10px;
+}
+h2 > a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+h0 {
+  font-size: 5vw;
+}

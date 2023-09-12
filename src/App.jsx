@@ -7,22 +7,26 @@ import AddParticipant from "./components/Participant/AddParticipant";
 import CardDetails from "./components/CardDetails/CardDetails";
 import ModalBox from "./components/ModalBox/ModalBox";
 import axios from "axios";
+import NotFound from "./components/NotFound";
+import Footer from "./components/Footer/Footer";
 
 axios.defaults.baseURL = "http://localhost:3000/";
 axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
-    <div className="wrapper">
-      <ParticipantList>
-        <Routes>
-          <Route path="/board" element={<Board />} />
-          <Route path="/modal" element={<ModalBox />} />
-          <Route path="/" element={<AddParticipant />} />
-          <Route path="/card" element={<CardDetails />} />
-        </Routes>
-      </ParticipantList>
-    </div>
+    // <div className="wrapper">
+    <ParticipantList>
+      <Routes>
+        <Route path="/" element={<AddParticipant />} />
+        <Route path="/board" element={<Board />} />
+        <Route path="/modal" element={<ModalBox />} />
+        <Route path="/footer" element={<Footer />} />
+        {/* <Route path="/card" element={<CardDetails />} /> */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </ParticipantList>
+    // </div>
   );
 };
 
