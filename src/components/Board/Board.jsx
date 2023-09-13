@@ -82,7 +82,7 @@ const Board = () => {
   return (
     <>
       <div className="wrapper">
-        <ModalBox />
+        {/* <ModalBox /> */}
         <div className="board-container">
           <div className="table">
             <div className="board">

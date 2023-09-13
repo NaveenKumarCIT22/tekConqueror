@@ -9,6 +9,7 @@ import ModalBox from "./components/ModalBox/ModalBox";
 import axios from "axios";
 import NotFound from "./components/NotFound";
 import Footer from "./components/Footer/Footer";
+import Quiz from "./components/Quiz/Quiz";
 
 axios.defaults.baseURL = "http://localhost:3000/";
 axios.defaults.withCredentials = true;
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/board" element={<Board />} />
         <Route path="/modal" element={<ModalBox />} />
         <Route path="/footer" element={<Footer />} />
+        <Route path="/quiz" element={<Quiz />} />
         {/* <Route path="/card" element={<CardDetails />} /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
