@@ -15,7 +15,7 @@ const Board = () => {
   const [part, setPart] = useState();
   const { displayParticipant } = useParticipants();
   const navigate = useNavigate();
-
+  const [propList, setPropList] = useState([]);
   function getCurrentPlayer() {
     return axios
       .post(
@@ -41,6 +41,12 @@ const Board = () => {
       }
     });
   }
+
+  function setOwner(curPos, plyr, prop) {
+    propList[curPos].propOwner = plyr.teamName;
+    plyr.propertiesOwned.push(prop.name);
+  }
+
   // for getting current participants
   useEffect(() => {
     //btc = temporary current batch
@@ -89,7 +95,7 @@ const Board = () => {
 
   return (
     <div className="wrapper">
-      <ModalBox />
+      {/* <ModalBox /> */}
       <div className="board-container">
         <div className="table">
           <div className="board">
