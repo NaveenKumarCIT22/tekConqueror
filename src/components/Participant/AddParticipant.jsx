@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useParticipants } from "../../contexts/ParticipantContext";
 import "./AddParticipant.css";
 import Footer from "../Footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 function AddParticipant() {
+  const navigate = useNavigate();
   const { addParticipant } = useParticipants();
   const [teamInfo, setTeamInfo] = useState({
     teamName: "",
@@ -74,19 +76,28 @@ function AddParticipant() {
             }}
             placeholder="Enter Member "
           />
+          <div className="btn-wraper">
+            <button
+              onClick={addMember}
+              className="participant-elements"
+              type="button"
+            >
+              Add Members
+            </button>{" "}
+            <button type="submit" className="participant-elements">
+              Add Team
+            </button>
+          </div>
           <button
-            onClick={addMember}
-            className="participant-elements"
             type="button"
+            onClick={() => navigate("/board")}
+            className="participant-elements"
           >
-            Next
-          </button>{" "}
-          <button type="submit" className="participant-elements">
-            Submit
+            Let's Play!!!
           </button>
         </form>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

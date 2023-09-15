@@ -16,19 +16,22 @@ axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
-    // <div className="wrapper">
-    <ParticipantList>
-      <Routes>
-        <Route path="/" element={<AddParticipant />} />
-        <Route path="/board" element={<Board />} />
-        <Route path="/modal" element={<ModalBox />} />
-        <Route path="/footer" element={<Footer />} />
-        <Route path="/quiz" element={<Quiz />} />
-        {/* <Route path="/card" element={<CardDetails />} /> */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </ParticipantList>
-    // </div>
+    <>
+      {/* // <div className="wrapper"> */}
+      <ParticipantList>
+        <Routes>
+          <Route path="/" element={<AddParticipant />} />
+          <Route path="/board" element={<Board />} />
+          <Route path="/modal" element={<ModalBox />} />
+          <Route path="/footer" element={<Footer />} />
+          <Route path="/quiz" element={<Quiz />} />
+          {/* <Route path="/card" element={<CardDetails />} /> */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </ParticipantList>
+      <Footer />
+      {/* // </div> */}
+    </>
   );
 };
 
