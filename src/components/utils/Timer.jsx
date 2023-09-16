@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-function Timer({ option }) {
+var pts = 0;
+
+export default function Timer({ option }) {
   const [time, setTime] = useState(20);
   useEffect(() => {
     if (time <= 0 || option) return;
@@ -10,8 +12,10 @@ function Timer({ option }) {
 
     return () => clearInterval(timer);
   }, [time]);
-
+  pts = time;
   return time;
 }
 
-export default Timer;
+export function points() {
+  return pts;
+}

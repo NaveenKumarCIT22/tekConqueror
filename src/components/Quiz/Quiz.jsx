@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Quiz.css";
-import Timer from "../utils/Timer";
+import Timer, { points } from "../utils/Timer";
+import axios from "axios";
 // import { setIsQuiz } from "../CardDetails/CardDetails";
 
-function Quiz({ changeState }) {
+function Quiz({ changeState, currentParticipant }) {
   const [option, setOption] = useState(false);
+  var crtOpt = false;
   // const [time, setTime] = useState(20);
   var done = 1;
   // time = 20;
@@ -12,9 +14,9 @@ function Quiz({ changeState }) {
     quizTitle: "Tech Question",
     quizQuestion: "What Question is this?",
     quizOptions: [
-      "Some Question",
       "This Question",
       "That Question",
+      "Some Question",
       "No Question",
     ],
     correctOption: "Some Question",
@@ -26,6 +28,20 @@ function Quiz({ changeState }) {
   function finalize() {
     // console.log(option);
     changeState();
+
+    axios
+      .post(
+        "/updatePoints",
+        { currentParticipant, points: points() },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((r) => {
+        console.log(r.data);
+      });
   }
   function validateQuiz(event) {
     // console.log(event);
@@ -37,11 +53,13 @@ function Quiz({ changeState }) {
     if (
       event.target.innerText.toLowerCase() === qzObj.correctOption.toLowerCase()
     ) {
+      crtOpt = true;
       event.target.classList.add("correct-option");
       console.log("hit");
       event.target.classList.remove("wrong-option");
       setOption(() => true);
     } else {
+      crtOpt = false;
       event.target.classList.add("wrong-option");
       event.target.classList.remove("correct-option");
       setOption(() => true);
@@ -59,6 +77,9 @@ function Quiz({ changeState }) {
     <div className="quiz-container">
       <div className="quiz-title-pane">
         <div className="quiz-title">{qzObj.quizTitle}</div>
+        <div className="quiz-disclaimer">
+          Double click the option to select it
+        </div>
         <div className="quiz-timer">
           <span className="counter">{<Timer option={option} />}</span>secs
         </div>

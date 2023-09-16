@@ -14,6 +14,9 @@
   z-index: 100;
   margin-left: 30vw;
   margin-top: 10vh;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 .quiz-title-pane {
   display: flex;
@@ -27,6 +30,9 @@
 .quiz-timer {
   color: green;
   text-shadow: 2px 2px rgb(178, 237, 3);
+}
+.quiz-disclaimer {
+  font-size: 0.7em;
 }
 .divider {
   border-bottom: 5px dashed rgb(255, 200, 0);
