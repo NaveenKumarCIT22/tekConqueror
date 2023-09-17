@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import "./CardDetails.css";
 import Quiz from "../Quiz/Quiz";
 
-function CardDetails({ propertyName, category, owner, price }) {
+function CardDetails({
+  propertyName,
+  category,
+  owner,
+  price,
+  currentParticipant,
+}) {
   owner = "hello";
   const [isQuiz, setIsQuiz] = useState(false);
   function changeState() {
@@ -21,7 +27,14 @@ function CardDetails({ propertyName, category, owner, price }) {
           </button>
         </div>
       </div>
-      {isQuiz && owner !== "" ? <Quiz changeState={changeState} /> : <></>}
+      {isQuiz && owner !== "" ? (
+        <Quiz
+          changeState={changeState}
+          currentParticipant={currentParticipant}
+        />
+      ) : (
+        <></>
+      )}
       {/* <Quiz /> */}
     </>
   );
@@ -29,3 +42,4 @@ function CardDetails({ propertyName, category, owner, price }) {
 
 // export setIsQuiz;
 export default CardDetails;
+// export changeState;

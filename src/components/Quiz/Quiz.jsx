@@ -4,23 +4,24 @@ import Timer, { points } from "../utils/Timer";
 import axios from "axios";
 // import { setIsQuiz } from "../CardDetails/CardDetails";
 
-function Quiz({ changeState, currentParticipant }) {
+const qzObj = {
+  quizTitle: "Tech Question",
+  quizQuestion: "What Question is this?",
+  quizOptions: [
+    "This Question",
+    "That Question",
+    "Some Question",
+    "No Question",
+  ],
+  correctOption: "Some Question",
+};
+
+function Quiz({ changeState, currentParticipant, qzObj }) {
   const [option, setOption] = useState(false);
   var crtOpt = false;
   // const [time, setTime] = useState(20);
   var done = 1;
   // time = 20;
-  const qzObj = {
-    quizTitle: "Tech Question",
-    quizQuestion: "What Question is this?",
-    quizOptions: [
-      "This Question",
-      "That Question",
-      "Some Question",
-      "No Question",
-    ],
-    correctOption: "Some Question",
-  };
   //   function handleClick(event) {
   //     event.classList.toggle("clicked-option");
   //     setOption;
@@ -32,7 +33,7 @@ function Quiz({ changeState, currentParticipant }) {
     axios
       .post(
         "/updatePoints",
-        { currentParticipant, points: points() },
+        { currentParticipant, points: crtOpt ? points() : 0 },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",

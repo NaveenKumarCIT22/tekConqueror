@@ -1,0 +1,54 @@
+.leader-board-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: darkcyan;
+  align-items: center;
+  justify-content: center;
+}
+
+.leader-board-inner-container {
+  width: 60%;
+  height: 80%;
+  background-color: rgba(137, 43, 226, 0.767);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 20px;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.leader-board-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.leader-board-arena {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.leaders {
+  width: 80%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 1.1em;
+}
+
+.leaders-header {
+  background-color: rgb(190, 88, 4);
+  font-weight: bolder;
+  font-size: 1.3em;
+}
