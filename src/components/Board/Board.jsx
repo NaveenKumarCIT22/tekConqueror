@@ -1,37 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Board.css";
 import StatsPane from "../Stats/StatsPane";
 import { useParticipants } from "../../contexts/ParticipantContext";
 import CardDetails from "../CardDetails/CardDetails";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import ModalBox from "../ModalBox/ModalBox";
 
 const Board = () => {
-  const [dice1, setDice1] = useState(1);
-  const [dice2, setDice2] = useState(1);
-  const [currentParticipant, setCurrentParticipant] = useState();
+  const [dice1, setDice1] = useState(0);
+  const [dice2, setDice2] = useState(0);
   const [curBatch, setcurBatch] = useState();
   const [part, setPart] = useState();
   const { displayParticipant } = useParticipants();
   const navigate = useNavigate();
   const [propList, setPropList] = useState([]);
-  function getCurrentPlayer() {
-    return axios
-      .post(
-        "/current",
-        { batchNo: curBatch },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
-      .then((r) => {
-        setCurrentParticipant(r.data);
-        return r.data;
-      });
-  }
+  const idx = useRef(0);
 
   function displayerUtil(pos) {
     return part.map((p) => {
@@ -66,31 +49,40 @@ const Board = () => {
           }
         )
         .then((response) => {
-          setPart(response.data);
+          setPart(() => response.data);
+          console.log(response.data[idx.current]);
         });
     }
   }, []);
 
   function rollDice() {
-    getCurrentPlayer().then((result) => {
-      const player = result ? result : {};
-      console.log(player);
-      axios
-        .post(
-          "/rollDice",
-          { batchNo: curBatch, player },
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        )
-        .then((response) => {
-          setDice1(() => response.data.dice1);
-          setDice2(() => response.data.dice2);
-          console.log(response.data);
+    axios
+      .post(
+        "/rollDice",
+        { batchNo: curBatch, player: part[idx.current] },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((r) => {
+        setPart((prev) => {
+          return prev.map((p) => {
+            if (p === part[(part.length + idx.current - 1) % part.length]) {
+              return {
+                ...p,
+                position: r.data.position,
+              };
+            } else {
+              return p;
+            }
+          });
         });
-    });
+        setDice1(() => r.data.dice1);
+        setDice2(() => r.data.dice2);
+        idx.current = (idx.current + 1) % part.length;
+      });
   }
 
   return (
@@ -175,7 +167,7 @@ const Board = () => {
               <div className="space railroad">
                 <div className="container">
                   <div className="name">Reading Railroad</div>
-
+                  {part && displayerUtil(4)}
                   <div className="price">Price $200</div>
                 </div>
               </div>
@@ -434,9 +426,7 @@ const Board = () => {
         </div>
       </div>
 
-      {currentParticipant && (
-        <StatsPane activeParticipant={currentParticipant} />
-      )}
+      {part && <StatsPane activeParticipant={part[idx.current]} />}
     </div>
   );
 };
