@@ -20,7 +20,7 @@
   margin: auto;
 }
 
-.part-color{
+.part-color {
   height: 20px;
   width: 20px;
   border: 1px solid black;
@@ -46,7 +46,7 @@
   display: block;
   list-style-type: none;
   padding: 0;
-  height: 58vh;
+  height: 38vh;
   overflow-y: scroll;
   border-radius: 20px;
 }
@@ -65,7 +65,7 @@
   text-align: center;
 }
 
-.title-container-part{
+.title-container-part {
   display: flex;
   align-items: center;
   justify-content: center;

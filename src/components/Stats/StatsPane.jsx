@@ -2,30 +2,31 @@ import React from "react";
 import "./StatsPane.css";
 import { useParticipants } from "../../contexts/ParticipantContext";
 
+// const activeParticipant = {
+//   teamName: "Team Name",
+//   members: ["Member 1", "Member 2", "Member 3"],
+//   balance: 20000,
+//   points: 50,
+//   propertiesOwned: [
+//     {
+//       propertyName: "Property Name",
+//       propertyValue: "2000",
+//       propertyCategory: "Website Development",
+//     },
+//     {
+//       propertyName: "Property Name",
+//       propertyValue: "2000",
+//       propertyCategory: "Website Development",
+//     },
+//     {
+//       propertyName: "Property Name",
+//       propertyValue: "2000",
+//       propertyCategory: "Website Development",
+//     },
+//   ],
+// };
 const StatsPane = ({ activeParticipant }) => {
-  // const activeParticipant = {
-  //   teamName: "Team Name",
-  //   members: ["Member 1", "Member 2", "Member 3"],
-  //   balance: 20000,
-  //   points: 50,
-  //   propertiesOwned: [
-  //     {
-  //       propertyName: "Property Name",
-  //       propertyValue: "2000",
-  //       propertyCategory: "Website Development",
-  //     },
-  //     {
-  //       propertyName: "Property Name",
-  //       propertyValue: "2000",
-  //       propertyCategory: "Website Development",
-  //     },
-  //     {
-  //       propertyName: "Property Name",
-  //       propertyValue: "2000",
-  //       propertyCategory: "Website Development",
-  //     },
-  //   ],
-  // };
+  // const StatsPane = () => {
   return (
     <div className="stats-pane">
       <h1 style={{ textAlign: "center" }}>Active Participants</h1>

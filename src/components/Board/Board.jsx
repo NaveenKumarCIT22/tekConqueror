@@ -5,6 +5,7 @@ import { useParticipants } from "../../contexts/ParticipantContext";
 import CardDetails from "../CardDetails/CardDetails";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import GameTimer from "../utils/GameTimer";
 
 const Board = () => {
   const [dice1, setDice1] = useState(0);
@@ -425,8 +426,12 @@ const Board = () => {
           </div>
         </div>
       </div>
-
-      {part && <StatsPane activeParticipant={part[idx.current]} />}
+      <div className="right-wrapper">
+        <div className="game-timer">
+          <GameTimer />
+        </div>
+        {part && <StatsPane activeParticipant={part[idx.current]} />}
+      </div>
     </div>
   );
 };
