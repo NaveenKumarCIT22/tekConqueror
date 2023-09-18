@@ -5,6 +5,8 @@ import { useParticipants } from "../../contexts/ParticipantContext";
 import CardDetails from "../CardDetails/CardDetails";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import GameTimer from "../utils/GameTimer";
 
 const Board = () => {
@@ -12,14 +14,37 @@ const Board = () => {
   const [dice2, setDice2] = useState(0);
   const [curBatch, setcurBatch] = useState();
   const [part, setPart] = useState();
-  const { displayParticipant } = useParticipants();
   const navigate = useNavigate();
   const [propList, setPropList] = useState([]);
   const idx = useRef(0);
 
+  function displayParticipant(p, cur) {
+    const { color, position } = p;
+    const ind = part.length - cur;
+    const element = (
+      <div
+        style={{
+          position: "relative",
+          zIndex: ind,
+        }}
+        className="flag"
+        key={crypto.randomUUID()}
+      >
+        <FontAwesomeIcon
+          icon={faFlag}
+          style={{
+            color: color,
+            fontSize: "1.5rem",
+            position: "absolute",
+          }}
+        />
+      </div>
+    );
+    return { position, element };
+  }
   function displayerUtil(pos) {
-    return part.map((p) => {
-      const { position, element } = displayParticipant(p);
+    return part.map((p, i) => {
+      const { position, element } = displayParticipant(p, i);
       if (position === pos) {
         return element;
       }
@@ -51,7 +76,6 @@ const Board = () => {
         )
         .then((response) => {
           setPart(() => response.data);
-          console.log(response.data[idx.current]);
         });
     }
   }, []);
@@ -84,6 +108,7 @@ const Board = () => {
         setDice2(() => r.data.dice2);
         idx.current = (idx.current + 1) % part.length;
       });
+    console.log(part[idx.curent]);
   }
 
   return (
@@ -94,7 +119,7 @@ const Board = () => {
           <div className="board">
             <div className="center">
               <h1 className="title">Cyber Conquest</h1>
-              <CardDetails />
+              {part && <CardDetails currentParticipant={part[idx]} />}
               <div
                 className="
               dice-container"

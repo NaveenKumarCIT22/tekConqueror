@@ -27,26 +27,8 @@ export function ParticipantList({ children }) {
       });
   };
 
-  function displayParticipant(p) {
-    const { color, position } = p;
-    const element = (
-      <div className="flag" key={crypto.randomUUID()}>
-        <FontAwesomeIcon
-          icon={faFlag}
-          style={{
-            color: color,
-            fontSize: "1.5rem",
-            position: "absolute",
-            zIndex: 2,
-          }}
-        />
-      </div>
-    );
-    return { position, element };
-  }
   const value = {
     addParticipant,
-    displayParticipant,
   };
   return (
     <participantContext.Provider value={value}>
