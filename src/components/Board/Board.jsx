@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Board.css";
 import StatsPane from "../Stats/StatsPane";
-import { useParticipants } from "../../contexts/ParticipantContext";
 import CardDetails from "../CardDetails/CardDetails";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -18,6 +17,21 @@ const Board = () => {
   const [propList, setPropList] = useState([]);
   const idx = useRef(0);
 
+  function reset() {
+    axios
+      .post(
+        "/reset",
+        { batchNo: curBatch },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then(() => {
+        window.location.reload();
+      });
+  }
   function displayParticipant(p, cur, isCurPlyr) {
     const { color, position } = p;
     const ind = part.length - cur;
@@ -34,7 +48,7 @@ const Board = () => {
           icon={faFlag}
           style={{
             color: color,
-            fontSize: "1.5rem",
+            fontSize: "2rem",
             position: "absolute",
           }}
           bounce
@@ -142,7 +156,7 @@ const Board = () => {
           <div className="board">
             <div className="center">
               <h1 className="title">Cyber Conquest</h1>
-              {part && <CardDetails currentParticipant={part[idx]} />}
+              {part && <CardDetails currentParticipant={part[idx.current]} />}
               <div
                 className="
               dice-container"
@@ -474,12 +488,17 @@ const Board = () => {
           </div>
         </div>
       </div>
-      <div className="right-wrapper">
-        <div className="game-timer">
-          <GameTimer />
+      {part && (
+        <div className="right-wrapper">
+          <div className="game-timer">
+            <GameTimer />
+          </div>
+          <StatsPane activeParticipant={part[idx.current]} />
+          <button id="reset" onClick={reset}>
+            Reset Game
+          </button>
         </div>
-        {part && <StatsPane activeParticipant={part[idx.current]} />}
-      </div>
+      )}
     </div>
   );
 };

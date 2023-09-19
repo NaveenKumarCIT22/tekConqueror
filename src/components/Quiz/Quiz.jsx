@@ -29,7 +29,6 @@ function Quiz({ changeState, currentParticipant }) {
   //   }
   function finalize() {
     // console.log(option);
-    changeState();
 
     axios
       .post(
@@ -44,6 +43,7 @@ function Quiz({ changeState, currentParticipant }) {
       .then((r) => {
         console.log(r.data);
       });
+    changeState();
   }
   function validateQuiz(event) {
     // console.log(event);

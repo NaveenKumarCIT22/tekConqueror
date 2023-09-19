@@ -471,3 +471,10 @@ h6 {
 .dice-image {
   width: 45%;
 }
+
+#reset{
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.3em;
+  cursor: pointer;
+}
