@@ -18,10 +18,29 @@ const Board = () => {
   const [propList, setPropList] = useState([]);
   const idx = useRef(0);
 
-  function displayParticipant(p, cur) {
+  function displayParticipant(p, cur, isCurPlyr) {
     const { color, position } = p;
     const ind = part.length - cur;
-    const element = (
+    const element = isCurPlyr ? (
+      <div
+        style={{
+          position: "relative",
+          zIndex: ind,
+        }}
+        className="flag"
+        key={crypto.randomUUID()}
+      >
+        <FontAwesomeIcon
+          icon={faFlag}
+          style={{
+            color: color,
+            fontSize: "1.5rem",
+            position: "absolute",
+          }}
+          bounce
+        />
+      </div>
+    ) : (
       <div
         style={{
           position: "relative",
@@ -44,7 +63,11 @@ const Board = () => {
   }
   function displayerUtil(pos) {
     return part.map((p, i) => {
-      const { position, element } = displayParticipant(p, i);
+      const { position, element } = displayParticipant(
+        p,
+        i,
+        p === part[idx.current]
+      );
       if (position === pos) {
         return element;
       }
