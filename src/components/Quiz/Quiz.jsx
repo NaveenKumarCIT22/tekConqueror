@@ -16,7 +16,8 @@ const qzObj = {
   correctOption: "Some Question",
 };
 
-function Quiz({ changeState, currentParticipant, qzObj }) {
+function Quiz({ changeState, currentParticipant }) {
+  // function Quiz({ changeState, currentParticipant, qzObj }) {
   const [option, setOption] = useState(false);
   var crtOpt = false;
   // const [time, setTime] = useState(20);

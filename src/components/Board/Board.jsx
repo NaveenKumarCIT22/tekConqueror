@@ -117,7 +117,7 @@ const Board = () => {
       .then((r) => {
         setPart((prev) => {
           return prev.map((p) => {
-            if (p === part[(part.length + idx.current - 1) % part.length]) {
+            if (p === part[idx.current]) {
               return {
                 ...p,
                 position: r.data.position,
