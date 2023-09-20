@@ -15,9 +15,8 @@ const Board = () => {
   const [part, setPart] = useState();
   const [chzObj, setChzObj] = useState({});
   const navigate = useNavigate();
-  const [propList, setPropList] = useState([]);
   const idx = useRef(0);
-
+  window.alert("change the reset thing");
   function reset() {
     axios
       .post(
@@ -89,11 +88,6 @@ const Board = () => {
     });
   }
 
-  function setOwner(curPos, plyr, prop) {
-    propList[curPos].propOwner = plyr.teamName;
-    plyr.propertiesOwned.push(prop.name);
-  }
-
   // for getting current participants
   useEffect(() => {
     //btc = temporary current batch
@@ -130,6 +124,7 @@ const Board = () => {
         }
       )
       .then((r) => {
+        console.log(r.data);
         setPart((prev) => {
           return prev.map((p) => {
             if (p === part[idx.current]) {
@@ -146,12 +141,10 @@ const Board = () => {
         setDice2(() => r.data.dice2);
         idx.current = (idx.current + 1) % part.length;
       });
-    // console.log(part[idx.curent]);
   }
 
   return (
     <div className="wrapper">
-      {/* <ModalBox /> */}
       <div className="board-container">
         <div className="table">
           <div className="board">
@@ -281,7 +274,7 @@ const Board = () => {
                   className="name"
                   style={{ color: "red", fontSize: "18px" }}
                 >
-                  Cyrpto
+                  Crypto
                   <br />
                   Locker
                   {part && displayerUtil(8)}

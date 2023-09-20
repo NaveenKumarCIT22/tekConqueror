@@ -11,6 +11,8 @@ import NotFound from "./components/NotFound";
 import Footer from "./components/Footer/Footer";
 import Quiz from "./components/Quiz/Quiz";
 import LeaderBoard from "./components/LeaderBoard/LeaderBoard";
+import Chance from "./components/Quiz/Chance";
+import TextQuiz from "./components/Quiz/TextQuiz";
 
 axios.defaults.baseURL = "http://localhost:3000/";
 axios.defaults.withCredentials = true;
@@ -27,6 +29,8 @@ const App = () => {
           <Route path="/footer" element={<Footer />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/leaderboard" element={<LeaderBoard />} />
+          <Route path="/chance" element={<Chance />} />
+          <Route path="/textquiz" element={<TextQuiz />} />
           {/* <Route path="/card" element={<CardDetails />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Quiz.css";
 
-function Chance({ chzObj }) {
-  // function Quiz({ changeState, currentParticipant, qzObj }) {
+const chzObj = {
+  title: "Chance Title",
+  message:
+    "Do as the chance card says and get benefits. Anyways you can stay still.",
+};
+
+function Chance() {
+  // function Chance({ changeState, currentParticipant,chzObj }) {
   const [option, setOption] = useState(false);
+
   var crtOpt = false;
-  // const [time, setTime] = useState(20);
   var done = 1;
-  // time = 20;
-  //   function handleClick(event) {
-  //     event.classList.toggle("clicked-option");
-  //     setOption;
-  //   }
   function finalize() {
-    // console.log(option);
     changeState();
     // axios
     //   .post(
@@ -43,22 +43,8 @@ function Chance({ chzObj }) {
       </div>
       <span className="divider"></span>
       <div className="quiz-arena">
-        <div className="qn-area">{qzObj.quizQuestion}</div>
-        <div className="options-area">
-          <ul className="options">
-            {qzObj.quizOptions.map((ele) => {
-              return (
-                <li
-                  className="option"
-                  key={crypto.randomUUID()}
-                  value={ele}
-                  onClick={(e) => validateQuiz(e)}
-                >
-                  {ele}
-                </li>
-              );
-            })}
-          </ul>
+        <div className="qn-area" style={{ textAlign: "center" }}>
+          {chzObj.message}
         </div>
         <button type="button" className="btn" onClick={finalize}>
           Finalize
