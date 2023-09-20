@@ -13,6 +13,7 @@ const Board = () => {
   const [dice2, setDice2] = useState(0);
   const [curBatch, setcurBatch] = useState();
   const [part, setPart] = useState();
+  const [chzObj, setChzObj] = useState({});
   const navigate = useNavigate();
   const [propList, setPropList] = useState([]);
   const idx = useRef(0);
@@ -145,7 +146,7 @@ const Board = () => {
         setDice2(() => r.data.dice2);
         idx.current = (idx.current + 1) % part.length;
       });
-    console.log(part[idx.curent]);
+    // console.log(part[idx.curent]);
   }
 
   return (
@@ -156,7 +157,9 @@ const Board = () => {
           <div className="board">
             <div className="center">
               <h1 className="title">Cyber Conquest</h1>
-              {part && <CardDetails currentParticipant={part[idx.current]} />}
+              {part && (
+                <CardDetails currentParticipant={part[idx]} chzObj={chzObj} />
+              )}
               <div
                 className="
               dice-container"
@@ -192,296 +195,280 @@ const Board = () => {
             </div>
             <div className="space corner go">
               <div className="container">
-                <div className="instructions">
-                  Collect $200.00 salary as you pass
-                </div>
+                <div className="instructions">Collect 200</div>
                 {part && displayerUtil(0)}
                 <div className="go-word">go</div>
               </div>
               <div className="arrow fa fa-long-arrow-left" />
             </div>
             <div className="row horizontal-row bottom-row">
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar light-blue" />
                   <div className="name">
-                    Connecticut Avenue
+                    GIT
                     {part && displayerUtil(7)}
                   </div>
-                  <div className="price">PRICE $120</div>
-                </div>
-              </div>
-              <div className="space property">
-                <div className="container">
-                  <div className="color-bar light-blue" />
-                  <div className="name">
-                    Vermont Avenue
-                    {part && displayerUtil(6)}
-                  </div>
-                  <div className="price">Price $100</div>
                 </div>
               </div>
               <div className="space chance">
                 <div className="container">
+                  <div className="color-bar light-blue" />
+                  <div className="name">
+                    Picto
+                    <br />
+                    graphy
+                    {part && displayerUtil(6)}
+                  </div>
+                </div>
+              </div>
+              {/* <div className="space chance">
+                <div className="container">
                   <div className="name">Chance</div>
                   {part && displayerUtil(5)}
                 </div>
-              </div>
-              <div className="space railroad">
+              </div> */}
+              <div className="space chance">
                 <div className="container">
-                  <div className="name">Reading Railroad</div>
-                  {part && displayerUtil(4)}
-                  <div className="price">Price $200</div>
+                  <div className="color-bar light-blue" />
+                  <div className="name">
+                    Win
+                    <br />
+                    dows
+                    {part && displayerUtil(5)}
+                  </div>
                 </div>
               </div>
               <div className="space fee income-tax">
                 <div className="container">
                   <div className="name">Income Tax</div>
                   <div className="diamond" />
-                  {part && displayerUtil(3)}
+                  {part && displayerUtil(4)}
+                </div>
+              </div>
+              <div className="space chance">
+                <div className="container">
+                  <div className="name">
+                    DSA
+                    {part && displayerUtil(3)}
+                  </div>
                 </div>
               </div>
               <div className="space community-chest">
                 <div className="container">
-                  <div className="name">Community Chest</div>
-                  {part && displayerUtil(2)}
-                  <div className="instructions">
-                    Follow instructions on top card
+                  <div className="name">
+                    Commu
+                    <br />
+                    nity Chest
                   </div>
+                  {part && displayerUtil(2)}
                 </div>
               </div>
-              <div className="space property">
+              <div className="space fee chance">
                 <div className="container">
                   <div className="color-bar dark-purple" />
-                  <div className="name three-line-name">
-                    Mediter-
-                    <br />
-                    ranean
-                    <br />
-                    Avenue
+                  <div className="name">
+                    cloud
                     {part && displayerUtil(1)}
                   </div>
-                  <div className="price">Price $50</div>
                 </div>
               </div>
             </div>
-            <div className="space corner jail">
-              <div className="just">Just</div>
-              <div className="drawing">
-                <div className="container">
-                  <div className="name">In</div>
-                  <div className="window">
-                    <div className="bar" />
-                    <div className="bar" />
-                    <div className="bar" />
-                    {part && displayerUtil(8)}
-                  </div>
-                  <div className="name">Jail</div>
+            <div className="space corner jail chance">
+              {/* <div className="drawing"> */}
+              <div className="container">
+                <div
+                  className="name"
+                  style={{ color: "red", fontSize: "18px" }}
+                >
+                  Cyrpto
+                  <br />
+                  Locker
+                  {part && displayerUtil(8)}
                 </div>
               </div>
-              <div className="visiting">Visiting</div>
+              {/* </div> */}
             </div>
             <div className="row vertical-row left-row">
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar orange" />
                   <div className="name">
-                    Tennessee Avenue
+                    Conne
+                    <br />
+                    ction
                     {part && displayerUtil(15)}
                   </div>
-                  <div className="price">Price $180</div>
                 </div>
               </div>
               <div className="space community-chest">
                 <div className="container">
-                  <div className="name">Community Chest</div>
+                  <div className="name">AI&DS</div>
                   {part && displayerUtil(14)}
-                  <div className="instructions">
-                    Follow instructions on top card
-                  </div>
                 </div>
               </div>
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar orange" />
                   <div className="name">
-                    St. James Avenue
+                    Memory Game
                     {part && displayerUtil(13)}
                   </div>
-                  <div className="price">Price $180</div>
                 </div>
               </div>
-              <div className="space railroad">
+              <div className="space chance">
                 <div className="container">
-                  <div className="name long-name">Pennsylvania Railroad</div>
+                  <div className="name long-name">Selenium</div>
                   {part && displayerUtil(12)}
-                  <div className="price">Price $200</div>
                 </div>
               </div>
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar purple" />
                   <div className="name">
-                    States Avenue
+                    Chances
                     {part && displayerUtil(11)}
                   </div>
-                  <div className="price">Price $140</div>
                 </div>
               </div>
-              <div className="space utility electric-company">
+              <div className="space chance">
                 <div className="container">
-                  <div className="name">Electric Company</div>
+                  <div className="name">Codeacy</div>
                   {part && displayerUtil(10)}
-                  <div className="price">Price $150</div>
                 </div>
               </div>
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar purple" />
                   <div className="name">
-                    St. Charles Place
+                    Pancha than thiram
                     {part && displayerUtil(9)}
                   </div>
-                  <div className="price">Price $140</div>
                 </div>
               </div>
             </div>
             <div className="space corner free-parking">
               <div className="container">
-                <div className="name">Free</div>
+                <div className="name">No Internet</div>
                 {part && displayerUtil(16)}
 
-                <div className="name">Parking</div>
+                <div className="name">Connection</div>
               </div>
             </div>
             <div className="row horizontal-row top-row">
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar red" />
                   <div className="name">
-                    Kentucky Avenue
+                    Linux
                     {part && displayerUtil(17)}
                   </div>
-                  <div className="price">Price $220</div>
                 </div>
               </div>
               <div className="space chance">
                 <div className="container">
-                  <div className="name">Chance</div>
+                  <div className="name">Sales Pitch</div>
                   {part && displayerUtil(18)}
                 </div>
               </div>
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar red" />
                   <div className="name">
-                    Indiana Avenue
+                    Cyber Security
                     {part && displayerUtil(19)}
                   </div>
-                  <div className="price">Price $220</div>
                 </div>
               </div>
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar red" />
                   <div className="name">
-                    Illinois Avenue
+                    Commu nity Chest
                     {part && displayerUtil(20)}
                   </div>
-                  <div className="price">Price $200</div>
                 </div>
               </div>
-              <div className="space railroad">
+              <div className="space chance">
                 <div className="container">
-                  <div className="name">B &amp; O Railroad</div>
+                  <div className="name">Snow flake</div>
                   {part && displayerUtil(21)}
-                  <div className="price">Price $200</div>
                 </div>
               </div>
-              <div className="space utility waterworks">
+              <div className="space chance">
                 <div className="container">
-                  <div className="name">Waterworks</div>
-                  <div className="space property"></div>
+                  <div className="name">Current Affairs</div>
+                  {/* <div className="space chance"></div> */}
                   {part && displayerUtil(22)}
-                  <div className="price">Price $120</div>
                 </div>
               </div>
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar yellow" />
                   <div className="name">
-                    Marvin Gardens
+                    Block Chain
                     {part && displayerUtil(23)}
                   </div>
-                  <div className="price">Price $280</div>
                 </div>
               </div>
             </div>
             <div className="space corner go-to-jail">
               <div className="container">
-                <div className="name">Go To</div>
+                <div className="name">Tech</div>
                 {part && displayerUtil(24)}
-                <div className="name">Jail</div>
+                <div className="name">Summit</div>
               </div>
             </div>
             <div className="row vertical-row right-row">
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar green" />
                   <div className="name three-line-name">
-                    North Carolina Avenue
+                    Chances
                     {part && displayerUtil(25)}
                   </div>
-                  <div className="price">Price $300</div>
                 </div>
               </div>
               <div className="space community-chest">
                 <div className="container">
-                  <div className="name">Community Chest</div>
+                  <div className="name">Program ming Language MCQs</div>
                   {part && displayerUtil(26)}
-                  <div className="instructions">
-                    Follow instructions on top card
-                  </div>
-                </div>
-              </div>
-              <div className="space property">
-                <div className="container">
-                  <div className="color-bar green" />
-                  <div className="name long-name">
-                    Pennsylvania Avenue
-                    {part && displayerUtil(27)}
-                  </div>
-                  <div className="price">Price $320</div>
-                </div>
-              </div>
-              <div className="space railroad">
-                <div className="container">
-                  <div className="name">Short Line</div>
-                  {part && displayerUtil(28)}
-                  <div className="price">Price $200</div>
                 </div>
               </div>
               <div className="space chance">
                 <div className="container">
-                  <div className="name">Chance</div>
+                  <div className="color-bar green" />
+                  <div className="name long-name">
+                    Fact or Myth
+                    {part && displayerUtil(27)}
+                  </div>
+                </div>
+              </div>
+              <div className="space chance">
+                <div className="container">
+                  <div className="name">Tech Anagrams</div>
+                  {part && displayerUtil(28)}
+                </div>
+              </div>
+              <div className="space chance">
+                <div className="container">
+                  <div className="name">Do or Die</div>
                   {part && displayerUtil(29)}
                 </div>
               </div>
-              <div className="space property">
+              <div className="space chance">
                 <div className="container">
                   <div className="color-bar dark-blue" />
                   <div className="name">
-                    Park Place
+                    Web Devlep ment
                     {part && displayerUtil(30)}
                   </div>
-                  <div className="price">Price $350</div>
                 </div>
               </div>
-              <div className="space fee luxury-tax">
+              <div className="space chance">
                 <div className="container">
-                  <div className="name">Luxury Tax</div>
+                  <div className="name">Histo rical Places</div>
                   {part && displayerUtil(31)}
-                  <div className="instructions">Pay $75.00</div>
                 </div>
               </div>
             </div>

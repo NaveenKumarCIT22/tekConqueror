@@ -10,7 +10,7 @@
   font-weight: 400;
   font-size: 10px;
   color: #080808;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 .wrapper {
   display: flex;
@@ -222,6 +222,7 @@ h6 {
 .space {
   background: #fafaf8;
   text-align: center;
+  font-size: 18px;
 }
 .space .container {
   display: flex;
@@ -277,7 +278,7 @@ h6 {
 
 .fee .name {
   padding-top: 10px;
-  font-size: 14px;
+  font-size: 18px;
 }
 .fee .instructions {
   font-size: 10px;
@@ -310,21 +311,13 @@ h6 {
 .jail {
   grid-column: 1;
   grid-row: 9/10;
-  display: grid;
-  grid-template-columns: repeat(10, 12.5px);
-  grid-template-rows: repeat(10, 12.5px);
+  display: flex;
+  /*grid-template-columns: repeat(10, 12.5px);
+  grid-template-rows: repeat(10, 12.5px); */
   justify-content: center;
   align-items: center;
 }
-.jail .drawing {
-  grid-column: 4/9;
-  grid-row: 1/8;
-  width: 87.5px;
-  height: 87.5px;
-  background: #fa811d;
-  border-bottom: 2px solid #080808;
-  border-left: 2px solid #080808;
-}
+
 .jail .just {
   grid-column: 3;
   grid-row: 4;

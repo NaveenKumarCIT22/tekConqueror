@@ -8,6 +8,7 @@ function CardDetails({
   owner,
   price,
   currentParticipant,
+  chzObj,
 }) {
   owner = "hello";
   const [isQuiz, setIsQuiz] = useState(false);
@@ -22,9 +23,15 @@ function CardDetails({
           <span id="category">{"category"}</span>
           {owner !== "" && <span id="owner">{"owner"}</span>}
           <span id="price">{"price"}</span>
-          <button id="cardBtn" onClick={() => setIsQuiz(true)}>
-            {owner !== "" ? "Face It" : "Buy It"}
-          </button>
+          {chzObj ? (
+            <button id="cardBtn" onClick={() => setIsQuiz(true)}>
+              Face It
+            </button>
+          ) : (
+            <button id="cardBtn" onClick={() => setIsQuiz(true)}>
+              {owner !== "" ? "Face It" : "Buy It"}
+            </button>
+          )}
         </div>
       </div>
       {isQuiz && owner !== "" ? (
