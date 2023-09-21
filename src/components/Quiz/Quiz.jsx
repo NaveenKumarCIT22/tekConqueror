@@ -16,11 +16,13 @@ const qzObj = {
     "No Question",
   ],
   correctOption: "Some Question",
+  explaination: "some explaination",
 };
 
 function Quiz({ changeState, currentParticipant }) {
   // function Quiz({ changeState, currentParticipant, qzObj }) {
   const [option, setOption] = useState(false);
+  const [expl, setExpl] = useState(false);
   var crtOpt = false;
   // const [time, setTime] = useState(20);
   var done = 1;
@@ -77,16 +79,26 @@ function Quiz({ changeState, currentParticipant }) {
   //       clearInterval(timer);
   //     }
   //   }, 1000);
+  var cond = qzObj.explaination && expl;
+  useEffect(() => {
+    // setExpl(()=>)
+    cond = qzObj.explaination && expl;
+    console.log(qzObj.explaination, expl, cond);
+  }, [expl]);
   return (
     <div className="quiz-container">
       <div className="quiz-title-pane">
         <div className="quiz-title">{qzObj.quizTitle}</div>
         <div className="quiz-disclaimer">
-          Double click the option to select it
+          {cond ? "Explaination:" : "Double click the option to select it"}
         </div>
-        <div className="quiz-timer">
-          <span className="counter">{<Timer option={option} />}</span>secs
-        </div>
+        {cond ? (
+          <></>
+        ) : (
+          <div className="quiz-timer">
+            <span className="counter">{<Timer option={option} />}</span>secs
+          </div>
+        )}
       </div>
       <span className="divider"></span>
       <div className="quiz-arena">
@@ -95,22 +107,39 @@ function Quiz({ changeState, currentParticipant }) {
           dangerouslySetInnerHTML={{ __html: qzObj.quizQuestion }}
         ></div>
         <div className="options-area">
-          <ul className="options">
-            {qzObj.quizOptions.map((ele) => {
-              return (
-                <li
-                  className="option"
-                  key={crypto.randomUUID()}
-                  value={ele}
-                  onClick={(e) => validateQuiz(e)}
-                >
-                  {ele}
-                </li>
-              );
-            })}
-          </ul>
+          {cond ? (
+            <>
+              <span className="divider"></span>
+              <div className="options">{qzObj.explaination}</div>
+            </>
+          ) : (
+            <ul className="options">
+              {qzObj.quizOptions.map((ele) => {
+                return (
+                  <li
+                    className="option"
+                    key={crypto.randomUUID()}
+                    value={ele}
+                    onClick={(e) => validateQuiz(e)}
+                  >
+                    {ele}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
-        <button type="button" className="btn" onClick={finalize}>
+        <button
+          type="button"
+          className="btn"
+          onClick={
+            !cond
+              ? () => {
+                  setExpl(() => true);
+                }
+              : finalize
+          }
+        >
           Finalize
         </button>
       </div>
