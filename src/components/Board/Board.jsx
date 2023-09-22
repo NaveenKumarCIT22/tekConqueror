@@ -13,10 +13,10 @@ const Board = () => {
   const [dice2, setDice2] = useState(0);
   const [curBatch, setcurBatch] = useState();
   const [part, setPart] = useState();
-  const [chzObj, setChzObj] = useState({});
+  const [chzObj, setChzObj] = useState();
+  const [propertyInfo, setPropertyInfo] = useState();
   const navigate = useNavigate();
   const idx = useRef(0);
-  window.alert("change the reset thing");
   function reset() {
     axios
       .post(
@@ -31,6 +31,9 @@ const Board = () => {
       .then(() => {
         window.location.reload();
       });
+  }
+  function next() {
+    idx.current = (idx.current + 1) % 32;
   }
   function displayParticipant(p, cur, isCurPlyr) {
     const { color, position } = p;
@@ -87,6 +90,50 @@ const Board = () => {
       }
     });
   }
+  function getParticipants(btc) {
+    axios
+      .post(
+        `/participants`,
+        { batchNo: btc },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((response) => {
+        setPart(() => response.data);
+      });
+  }
+  function getProps() {
+    axios
+      .get("/properties")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+  function getPropertyAtPosition(position) {
+    axios
+      .post(
+        "/getProp",
+        { position },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((r) => {
+        console.log(r.data);
+        setPropertyInfo(() => r.data.property);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 
   // for getting current participants
   useEffect(() => {
@@ -96,19 +143,8 @@ const Board = () => {
     if (curBatch === null) {
       navigate("/");
     } else {
-      axios
-        .post(
-          `/participants`,
-          { batchNo: btc },
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        )
-        .then((response) => {
-          setPart(() => response.data);
-        });
+      getParticipants(btc);
+      getProps();
     }
   }, []);
 
@@ -139,7 +175,7 @@ const Board = () => {
         });
         setDice1(() => r.data.dice1);
         setDice2(() => r.data.dice2);
-        idx.current = (idx.current + 1) % part.length;
+        getPropertyAtPosition(5);
       });
   }
 
@@ -150,8 +186,13 @@ const Board = () => {
           <div className="board">
             <div className="center">
               <h1 className="title">Cyber Conquest</h1>
-              {part && (
-                <CardDetails currentParticipant={part[idx]} chzObj={chzObj} />
+              {part && propertyInfo && (
+                <CardDetails
+                  currentParticipant={part[idx.current]}
+                  chzObj={chzObj}
+                  propertyInfo={propertyInfo}
+                  next={next}
+                />
               )}
               <div
                 className="
@@ -296,7 +337,7 @@ const Board = () => {
               </div>
               <div className="space community-chest">
                 <div className="container">
-                  <div className="name">AI&DS</div>
+                  <div className="name">AI</div>
                   {part && displayerUtil(14)}
                 </div>
               </div>
