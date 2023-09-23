@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function payRent(currentParticipant, property) {
+export function payRent(currentParticipant, property) {
   axios
     .post(
       "/rent",

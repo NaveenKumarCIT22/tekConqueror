@@ -24,11 +24,15 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
         console.log(r.data);
       });
   }
-  function handleClick() {
+  function handleClick(e) {
     if (owner === "") {
       buy();
+      e.target.disabled = true;
+      e.target.innerText = "Bought 😉";
+      e.target.style.opacity = 1;
     } else {
       setIsQuiz(() => true);
+      e.target.disabled = false;
     }
   }
   return (
@@ -38,7 +42,11 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
           <span id="propertyName">{propertyName}</span>
           <span id="category">Category: {category}</span>
           {owner !== "" && <span id="owner">{owner}</span>}
-          <span id="price">Price: ${price}</span>
+          {owner === "" ? (
+            <span id="price">Price: ${price}</span>
+          ) : (
+            <span id="price">Rent: ${price / 2}</span>
+          )}
           {chzObj ? (
             <>
               <button id="cardBtn" onClick={() => setIsQuiz(true)}>
@@ -50,12 +58,18 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
             </>
           ) : (
             <>
-              <button id="cardBtn" onClick={handleClick}>
+              <button
+                id="cardBtn"
+                onClick={handleClick}
+                // {...(owner !== "" && "disabled")}
+              >
                 {owner !== "" ? "Face It" : "Buy It"}
               </button>
-              <button id="cardBtn" onClick={next}>
-                Next
-              </button>
+              {owner === "" && (
+                <button id="cardBtn" onClick={next}>
+                  Next
+                </button>
+              )}
             </>
           )}
         </div>
@@ -64,6 +78,8 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
         <Quiz
           changeState={changeState}
           currentParticipant={currentParticipant}
+          property={propertyInfo}
+          next={next}
         />
       ) : (
         <></>
