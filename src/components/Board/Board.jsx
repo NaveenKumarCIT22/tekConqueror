@@ -7,8 +7,10 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import GameTimer from "../utils/GameTimer";
+import { useParticipants } from "../../contexts/ParticipantContext";
 
 const Board = () => {
+  const { setCurrentBatch } = useParticipants();
   const [dice1, setDice1] = useState(0);
   const [dice2, setDice2] = useState(0);
   const [curBatch, setcurBatch] = useState();
@@ -34,6 +36,7 @@ const Board = () => {
   }
   function next() {
     idx.current = (idx.current + 1) % 32;
+    setPart((prev) => [...prev]);
   }
   function displayParticipant(p, cur, isCurPlyr) {
     const { color, position } = p;
@@ -139,6 +142,10 @@ const Board = () => {
   useEffect(() => {
     //btc = temporary current batch
     const btc = window.prompt("Enter Current Batch Number");
+    setCurrentBatch(() => {
+      console.log("setting inside context");
+      return btc;
+    });
     setcurBatch(() => btc);
     if (curBatch === null) {
       navigate("/");
@@ -175,7 +182,7 @@ const Board = () => {
         });
         setDice1(() => r.data.dice1);
         setDice2(() => r.data.dice2);
-        getPropertyAtPosition(5);
+        getPropertyAtPosition(r.data.position);
       });
   }
 
@@ -302,7 +309,7 @@ const Board = () => {
                 <div className="container">
                   <div className="color-bar dark-purple" />
                   <div className="name">
-                    cloud
+                    Cloud
                     {part && displayerUtil(1)}
                   </div>
                 </div>
@@ -465,7 +472,7 @@ const Board = () => {
               </div>
               <div className="space community-chest">
                 <div className="container">
-                  <div className="name">Program ming Language MCQs</div>
+                  <div className="name">Program ming MCQs</div>
                   {part && displayerUtil(26)}
                 </div>
               </div>

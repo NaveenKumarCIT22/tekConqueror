@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 // var pts = 0;
 
 export default function GameTimer({ option }) {
-  const [time, setTime] = useState(20 * 60);
+  const [time, setTime] = useState(20*60);
   const navigate = useNavigate();
   useEffect(() => {
     if (time <= 0 || option) {
