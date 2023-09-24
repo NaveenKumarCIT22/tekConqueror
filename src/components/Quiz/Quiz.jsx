@@ -37,7 +37,7 @@ function Quiz({ changeState, currentParticipant, property, next }) {
     axios
       .post(
         "/quiz",
-        { propertyName: property },
+        { property },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -137,6 +137,7 @@ function Quiz({ changeState, currentParticipant, property, next }) {
           ) : (
             <ul className="options">
               {qzObj &&
+                qzObj.quizOptions &&
                 qzObj.quizOptions.map((ele) => {
                   return (
                     <li

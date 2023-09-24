@@ -79,7 +79,7 @@ const Board = () => {
         />
       </div>
     );
-    return { position, element };
+    return { position: parseInt(position), element };
   }
   function displayerUtil(pos) {
     return part.map((p, i) => {

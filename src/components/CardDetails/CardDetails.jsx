@@ -5,6 +5,7 @@ import axios from "axios";
 
 function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
   const [isQuiz, setIsQuiz] = useState(false);
+
   const { owner, price, category, propertyName } = propertyInfo;
   function changeState() {
     setIsQuiz((prev) => !prev);
@@ -27,14 +28,15 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
   function handleClick(e) {
     if (owner === "") {
       buy();
-      e.target.disabled = true;
+      // e.target.disabled = true;
       e.target.innerText = "Bought 😉";
       e.target.style.opacity = 1;
     } else {
       setIsQuiz(() => true);
-      e.target.disabled = false;
+      // e.target.disabled = false;
     }
   }
+
   return (
     <>
       <div className="card-details">
