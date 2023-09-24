@@ -1,8 +1,3 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./Quiz.css";
-import Timer, { points } from "../utils/Timer";
-import axios from "axios";
-import { payRent } from "../utils/payRent";
 // import { setIsQuiz } from "../CardDetails/CardDetails";
 
 // const qzObj = {
@@ -21,18 +16,16 @@ import { payRent } from "../utils/payRent";
 // };
 
 // function Quiz({ changeState, currentParticipant }) {
+
+import React, { useEffect, useState } from "react";
+import OptQuiz from "./OptQuiz";
+import TextQuiz from "./TextQuiz";
+import axios from "axios";
+
 function Quiz({ changeState, currentParticipant, property, next }) {
-  const [option, setOption] = useState(false);
-  const [expl, setExpl] = useState(false);
+  // function Quiz() {
   const [qzObj, setQzObj] = useState();
-  const crtOpt = useRef(false);
-  // const [time, setTime] = useState(20);
   var done = 1;
-  // time = 20;
-  //   function handleClick(event) {
-  //     event.classList.toggle("clicked-option");
-  //     setOption;
-  //   }
   useEffect(() => {
     axios
       .post(
@@ -48,127 +41,24 @@ function Quiz({ changeState, currentParticipant, property, next }) {
         setQzObj(() => r.data.qzObj);
       });
   }, []);
-  function finalize() {
-    // console.log(option);
-
-    axios
-      .post(
-        "/updatePoints",
-        { currentParticipant, points: crtOpt.current ? points() : 0 },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
-      .then((r) => {
-        console.log(r.data);
-        !crtOpt.current && payRent(currentParticipant, property);
-      });
-    crtOpt.current && next();
-    console.log("value of crtOpt", crtOpt);
-    changeState();
+  if (qzObj) {
+    console.log("true");
+    <OptQuiz
+      changeState={changeState}
+      currentParticipant={currentParticipant}
+      property={property}
+      next={next}
+      qzObj={qzObj}
+    />;
+  } else {
+    <TextQuiz
+      changeState={changeState}
+      currentParticipant={currentParticipant}
+      property={property}
+      next={next}
+      txtQzObj={qzObj}
+    />;
   }
-  function validateQuiz(event) {
-    // console.log(event);
-    // console.log(
-    //   event.target.innerText,
-    //   qzObj.correctOption,
-    //   event.target.innerText == qzObj.correctOption
-    // );
-    if (
-      event.target.innerText.toLowerCase() === qzObj.correctOption.toLowerCase()
-    ) {
-      crtOpt.current = true;
-      event.target.classList.add("correct-option");
-      console.log("hit");
-      event.target.classList.remove("wrong-option");
-      setOption(() => true);
-    } else {
-      crtOpt.current = false;
-      event.target.classList.add("wrong-option");
-      event.target.classList.remove("correct-option");
-      setOption(() => true);
-    }
-  }
-  //   var count = 20;
-  //   var timer = setInterval(() => {
-  //     // count -= 1;
-  //     setTime((pre) => pre - 1);
-  //     if (count < 0) {
-  //       clearInterval(timer);
-  //     }
-  //   }, 1000);
-  var cond = qzObj && qzObj.explanation && expl;
-  useEffect(() => {
-    // setExpl(()=>)
-    cond = qzObj && qzObj.explanation && expl;
-    qzObj && console.log(qzObj.explanation, expl, cond);
-  }, [expl]);
-  return (
-    <div className="quiz-container">
-      <div className="quiz-title-pane">
-        <div className="quiz-title">{qzObj && qzObj.quizTitle}</div>
-        <div className="quiz-disclaimer">
-          {cond ? "explanation:" : "Double click the option to select it"}
-        </div>
-        {cond ? (
-          <></>
-        ) : (
-          <div className="quiz-timer">
-            <span className="counter">{<Timer option={option} />}</span>secs
-          </div>
-        )}
-      </div>
-      <span className="divider"></span>
-      <div className="quiz-arena">
-        {qzObj && (
-          <div
-            className="qn-area"
-            dangerouslySetInnerHTML={{ __html: qzObj.quizQuestion }}
-          ></div>
-        )}
-        <div className="options-area">
-          {cond ? (
-            <>
-              <span className="divider"></span>
-              <div className="options">{qzObj && qzObj.explanation}</div>
-            </>
-          ) : (
-            <ul className="options">
-              {qzObj &&
-                qzObj.quizOptions &&
-                qzObj.quizOptions.map((ele) => {
-                  return (
-                    <li
-                      className="option"
-                      key={crypto.randomUUID()}
-                      value={ele}
-                      onClick={(e) => validateQuiz(e)}
-                    >
-                      {ele}
-                    </li>
-                  );
-                })}
-            </ul>
-          )}
-        </div>
-        <button
-          type="button"
-          className="btn"
-          onClick={
-            !cond
-              ? () => {
-                  setExpl(() => true);
-                }
-              : finalize
-          }
-        >
-          Finalize
-        </button>
-      </div>
-    </div>
-  );
 }
 
 export default Quiz;
