@@ -122,7 +122,7 @@ function TextQuiz(
             type="text"
             name="option"
             id="option"
-            className="options"
+            className="txtOptions"
             onChange={validateQuiz}
           />
         </div>

@@ -96,7 +96,7 @@
   max-width: 80vw;
   max-height: 80vh;
 }
-input[type="text"] {
+.txtOptions {
   font-size: 0.8em;
   border-radius: 10px;
   padding: 10px;
