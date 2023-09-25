@@ -20,12 +20,12 @@ export function points() {
   return pts;
 }
 
-export function MemoryTimer({ option, setMemory }) {
+export function MemoryTimer({ toggleMemory }) {
   const [time, setTime] = useState(10);
   useEffect(() => {
-    if (time <= 0 || option) {
+    if (time <= 0) {
       console.log("falsed");
-      setMemory(() => false);
+      toggleMemory();
       return;
     }
     const timer = setInterval(() => {

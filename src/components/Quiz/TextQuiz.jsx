@@ -37,6 +37,10 @@ function TextQuiz(
   const [option, setOption] = useState(false);
   const [memory, setMemory] = useState(true);
   let pts = 0;
+  function toggleMemory() {
+    console.log("inside toggle");
+    setMemory((prev) => !prev);
+  }
 
   const crtOpt = useRef(false);
 
@@ -100,7 +104,7 @@ function TextQuiz(
           <span className="counter">
             {txtQzObj && checkAnagram() && <Timer option={option} />}
             {txtQzObj && !checkAnagram() && (
-              <MemoryTimer option={option} setMemory={setMemory} />
+              <MemoryTimer toggleMemory={toggleMemory} />
             )}
           </span>
           secs
@@ -108,15 +112,16 @@ function TextQuiz(
       </div>
       <span className="divider"></span>
       <div className="quiz-arena">
-        {memory && (
+        {/* {memory && (
           <div
             className="qn-area"
             style={{ textAlign: "center" }}
             dangerouslySetInnerHTML={{ __html: txtQzObj?.quizQuestion }}
           >
-            {/* {txtQzObj?.quizQuestion} */}
+            {txtQzObj?.quizQuestion}
           </div>
-        )}
+        )} */}
+        {memory && <div className="qn-area">Hello</div>}
         <div className="options-area">
           <input
             type="text"

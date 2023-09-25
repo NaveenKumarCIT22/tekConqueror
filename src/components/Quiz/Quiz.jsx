@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import OptQuiz from "./OptQuiz";
 import TextQuiz from "./TextQuiz";
 import axios from "axios";
+import MemoryQuiz from "./MemoryQuiz";
 
 function Quiz({ changeState, currentParticipant, property, next }) {
   const [qzObj, setQzObj] = useState();
@@ -31,8 +32,15 @@ function Quiz({ changeState, currentParticipant, property, next }) {
         qzObj={qzObj}
       />
     );
-  } else if (property.propertyName === "Tech Anagrams") {
-    return;
+  } else if (property.propertyName === "Memory Game") {
+    return (
+      <MemoryQuiz
+        changeState={changeState}
+        currentParticipant={currentParticipant}
+        next={next}
+        txtQzObj={qzObj}
+      />
+    );
   } else {
     return (
       <TextQuiz

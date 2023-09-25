@@ -3,6 +3,7 @@ import { useParticipants } from "../../contexts/ParticipantContext";
 import "./LeaderBoard.css";
 
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 // const leaders = [
 //   // points wise descending la send pannu bro
@@ -34,23 +35,20 @@ import React, { useEffect, useState } from "react";
 // ];
 
 function LeaderBoard() {
-  const { currentBatch } = useParticipants();
   const [leaders, setLeaders] = useState();
   const params = useParams();
-  console.log(params);
   useEffect(() => {
-    console.log(currentBatch);
     axios
       .post(
         "/participants",
-        { batchNo: currentBatch },
+        { batchNo: params.btcNo },
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
         }
       )
-      .then((r) => setLeaders(() => r.data));
+      .then((r) => setLeaders(() => r.data.slice(0, 5)));
   }, []);
   leaders && leaders.sort((a, b) => b.points - a.points);
   return (

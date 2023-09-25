@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useParticipants } from "../../contexts/ParticipantContext";
 
 // var pts = 0;
 
 export default function GameTimer({ option }) {
-  const [time, setTime] = useState(20*60);
+  const { currentBatch } = useParticipants();
+  const [time, setTime] = useState(20 * 60);
   const navigate = useNavigate();
   useEffect(() => {
     if (time <= 0 || option) {
       window.alert("Game is Over...!Times up!!🤷‍♂️");
-      navigate("/leaderboard");
+      navigate(`/leaderboard/${currentBatch}`);
       return;
     }
     const timer = setInterval(() => {
