@@ -33,7 +33,9 @@ function Chance() {
   return (
     <div className="quiz-container">
       <div className="quiz-title-pane">
-        <div className="quiz-title">{chzObj.title}</div>
+        {title && title !== "" && (
+          <div className="quiz-title">{chzObj.title}</div>
+        )}
         {/* <div className="quiz-disclaimer">
           Double click the option to select it
         </div> */}

@@ -19,3 +19,21 @@ export default function Timer({ option }) {
 export function points() {
   return pts;
 }
+
+export function MemoryTimer({ option, setMemory }) {
+  const [time, setTime] = useState(10);
+  useEffect(() => {
+    if (time <= 0 || option) {
+      console.log("falsed");
+      setMemory(() => false);
+      return;
+    }
+    const timer = setInterval(() => {
+      setTime((pre) => pre - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [time]);
+  pts = time;
+  return time;
+}

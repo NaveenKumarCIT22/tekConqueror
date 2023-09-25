@@ -19,6 +19,15 @@ const Board = () => {
   const [propertyInfo, setPropertyInfo] = useState();
   const navigate = useNavigate();
   const idx = useRef(0);
+  const GO_BOX = 0;
+  const COMMUNITY_CHEST_1 = 2;
+  const INCOME_TAX = 4;
+  const CRYPTO_LOCKER = 8;
+  const CHANCES_1 = 11;
+  const NO_INTERNET_CONNECTION = 16;
+  const COMMUNITY_CHEST_2 = 20;
+  const KRONOS = 24;
+  const CHANCES_2 = 25;
   function reset() {
     axios
       .post(
@@ -35,7 +44,7 @@ const Board = () => {
       });
   }
   function next() {
-    idx.current = (idx.current + 1) % 32;
+    idx.current = (idx.current + 1) % part.length;
     setPart((prev) => [...prev]);
   }
   function displayParticipant(p, cur, isCurPlyr) {
@@ -105,12 +114,20 @@ const Board = () => {
         }
       )
       .then((response) => {
-        setPart(() => response.data);
+        setPart((prev) => [...response.data]);
       });
   }
-  function getProps() {
+  function getProps(mf) {
     axios
-      .get("/properties")
+      .post(
+        "/properties",
+        { batchNo: mf },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data);
       })
@@ -119,6 +136,7 @@ const Board = () => {
       });
   }
   function getPropertyAtPosition(position) {
+    console.log(position);
     axios
       .post(
         "/getProp",
@@ -130,8 +148,9 @@ const Board = () => {
         }
       )
       .then((r) => {
-        console.log(r.data);
+        console.log(r.data.property);
         setPropertyInfo(() => r.data.property);
+        console.log("propinfo", propertyInfo);
       })
       .catch((e) => {
         console.log(e);
@@ -143,7 +162,6 @@ const Board = () => {
     //btc = temporary current batch
     const btc = window.prompt("Enter Current Batch Number");
     setCurrentBatch(() => {
-      console.log("setting inside context");
       return btc;
     });
     setcurBatch(() => btc);
@@ -151,9 +169,13 @@ const Board = () => {
       navigate("/");
     } else {
       getParticipants(btc);
-      getProps();
+      getProps(btc);
     }
   }, []);
+
+  useEffect(() => {
+    part && getPropertyAtPosition(part[idx.current].position);
+  }, [part]);
 
   function rollDice() {
     axios
@@ -167,7 +189,6 @@ const Board = () => {
         }
       )
       .then((r) => {
-        console.log(r.data);
         setPart((prev) => {
           return prev.map((p) => {
             if (p === part[idx.current]) {
@@ -182,6 +203,25 @@ const Board = () => {
         });
         setDice1(() => r.data.dice1);
         setDice2(() => r.data.dice2);
+        const post = parseInt(r.data.position);
+        if (
+          post === CHANCES_1 ||
+          post === CHANCES_2 ||
+          post === COMMUNITY_CHEST_1 ||
+          post === COMMUNITY_CHEST_2
+        ) {
+          setChzObj(() => {
+            return { title: r.data.title, message: r.data.message };
+          });
+        } else if (
+          post === NO_INTERNET_CONNECTION ||
+          post === KRONOS ||
+          post === CRYPTO_LOCKER
+        ) {
+          setChzObj(() => {
+            return { title: "", message: r.data.message };
+          });
+        }
         getPropertyAtPosition(r.data.position);
       });
   }
@@ -455,9 +495,8 @@ const Board = () => {
             </div>
             <div className="space corner go-to-jail">
               <div className="container">
-                <div className="name">Tech</div>
+                <div className="name">Kronos</div>
                 {part && displayerUtil(24)}
-                <div className="name">Summit</div>
               </div>
             </div>
             <div className="row vertical-row right-row">

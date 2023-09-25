@@ -5,8 +5,19 @@ import axios from "axios";
 
 function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
   const [isQuiz, setIsQuiz] = useState(false);
+  const [msg, setMsg] = useState();
+  const GO_BOX = 0;
+  const COMMUNITY_CHEST_1 = 2;
+  const INCOME_TAX = 4;
+  const CRYPTO_LOCKER = 8;
+  const CHANCES_1 = 11;
+  const NO_INTERNET_CONNECTION = 16;
+  const COMMUNITY_CHEST_2 = 20;
+  const KRONOS = 24;
+  const CHANCES_2 = 25;
 
-  const { owner, price, category, propertyName } = propertyInfo;
+  const { owner, price, category, propertyName, position } = propertyInfo;
+  console.log(propertyInfo);
   function changeState() {
     setIsQuiz((prev) => !prev);
   }
@@ -22,7 +33,7 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
         }
       )
       .then((r) => {
-        console.log(r.data);
+        setMsg(() => r.data);
       });
   }
   function handleClick(e) {
@@ -42,13 +53,13 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
       <div className="card-details">
         <div className="card-det">
           <span id="propertyName">{propertyName}</span>
-          <span id="category">Category: {category}</span>
-          {owner !== "" && <span id="owner">{owner}</span>}
-          {owner === "" ? (
-            <span id="price">Price: ${price}</span>
-          ) : (
-            <span id="price">Rent: ${price / 2}</span>
-          )}
+          {category && <span id="category">Category: {category}</span>}
+          {owner && owner !== "" && <span id="owner">Owner: {owner}</span>}
+          {owner === ""
+            ? price && <span id="price">Price: ${price}</span>
+            : price && <span id="price">Rent: ${price / 2}</span>}
+
+          {/* {msg && <span id="price">{msg}</span>} */}
           {chzObj ? (
             <>
               <button id="cardBtn" onClick={() => setIsQuiz(true)}>
@@ -60,18 +71,33 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
             </>
           ) : (
             <>
-              <button
-                id="cardBtn"
-                onClick={handleClick}
-                // {...(owner !== "" && "disabled")}
-              >
-                {owner !== "" ? "Face It" : "Buy It"}
+              {owner !== currentParticipant["teamName"] &&
+                !(
+                  position === GO_BOX ||
+                  position === COMMUNITY_CHEST_1 ||
+                  position === INCOME_TAX ||
+                  position === CRYPTO_LOCKER ||
+                  position === CHANCES_1 ||
+                  position === NO_INTERNET_CONNECTION ||
+                  position === COMMUNITY_CHEST_2 ||
+                  position === KRONOS ||
+                  position === CHANCES_2
+                ) && (
+                  <button
+                    id="cardBtn"
+                    onClick={handleClick}
+                    // {...(owner !== "" && "disabled")}
+                  >
+                    {owner !== "" ? "Face It" : "Buy It"}
+                  </button>
+                )}
+              {/* {(!owner ||
+                owner === "" ||
+                owner === currentParticipant["teamName"]) && ( */}
+              <button id="cardBtn" onClick={next}>
+                Next
               </button>
-              {owner === "" && (
-                <button id="cardBtn" onClick={next}>
-                  Next
-                </button>
-              )}
+              {/* )} */}
             </>
           )}
         </div>

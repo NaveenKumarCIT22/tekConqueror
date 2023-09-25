@@ -5,7 +5,6 @@ import StatsPane from "./components/Stats/StatsPane";
 import { ParticipantList } from "./contexts/ParticipantContext";
 import AddParticipant from "./components/Participant/AddParticipant";
 import CardDetails from "./components/CardDetails/CardDetails";
-// import ModalBox from "./components/ModalBox/ModalBox";
 import axios from "axios";
 import NotFound from "./components/NotFound";
 import Footer from "./components/Footer/Footer";
@@ -25,8 +24,8 @@ const App = () => {
           <Route path="/" element={<AddParticipant />} />
           <Route path="/board" element={<Board />} />
           <Route path="/footer" element={<Footer />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/leaderboard" element={<LeaderBoard />} />
+          <Route path="/quiz" element={<TextQuiz />} />
+          <Route path="/leaderboard/:btcNo?" element={<LeaderBoard />} />
           <Route path="/chance" element={<Chance />} />
           <Route path="/textquiz" element={<TextQuiz />} />
           <Route path="/card" element={<CardDetails />} />

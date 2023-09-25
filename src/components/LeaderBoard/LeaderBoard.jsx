@@ -36,6 +36,8 @@ import React, { useEffect, useState } from "react";
 function LeaderBoard() {
   const { currentBatch } = useParticipants();
   const [leaders, setLeaders] = useState();
+  const params = useParams();
+  console.log(params);
   useEffect(() => {
     console.log(currentBatch);
     axios

@@ -92,3 +92,12 @@
 .btn:active {
   background-color: rgba(243, 188, 77, 0.8);
 }
+.imgElem {
+  max-width: 80vw;
+  max-height: 80vh;
+}
+input[type="text"] {
+  font-size: 0.8em;
+  border-radius: 10px;
+  padding: 10px;
+}
