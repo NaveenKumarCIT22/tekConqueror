@@ -6,7 +6,7 @@ import { useParticipants } from "../../contexts/ParticipantContext";
 
 export default function GameTimer({ option }) {
   const { currentBatch } = useParticipants();
-  const [time, setTime] = useState(20 * 60);
+  const [time, setTime] = useState(30 * 60);
   const navigate = useNavigate();
   useEffect(() => {
     if (time <= 0 || option) {

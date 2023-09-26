@@ -32,7 +32,11 @@ function Quiz({ changeState, currentParticipant, property, next }) {
         qzObj={qzObj}
       />
     );
-  } else if (property.propertyName === "Memory Game") {
+  } else if (
+    property.propertyName === "Memory Game" ||
+    property.propertyName === "Connections" ||
+    property.propertyName === "Sales Pitch"
+  ) {
     return (
       <MemoryQuiz
         changeState={changeState}
@@ -42,6 +46,7 @@ function Quiz({ changeState, currentParticipant, property, next }) {
       />
     );
   } else {
+    console.log(property.propertyName);
     return (
       <TextQuiz
         changeState={changeState}

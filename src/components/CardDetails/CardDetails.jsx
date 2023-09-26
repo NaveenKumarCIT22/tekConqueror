@@ -15,6 +15,7 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
   const COMMUNITY_CHEST_2 = 20;
   const KRONOS = 24;
   const CHANCES_2 = 25;
+  const RIP = 10;
 
   const { owner, price, category, propertyName, position } = propertyInfo;
   console.log(propertyInfo);
@@ -62,9 +63,10 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
           {/* {msg && <span id="price">{msg}</span>} */}
           {chzObj ? (
             <>
-              <button id="cardBtn" onClick={() => setIsQuiz(true)}>
-                Face It
-              </button>
+              <div className="chz-wrapper">
+                <div id="category">{chzObj.title}</div>
+                <div id="price">{chzObj.message}</div>
+              </div>
               <button id="cardBtn" onClick={next}>
                 Next
               </button>
@@ -81,7 +83,8 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
                   position === NO_INTERNET_CONNECTION ||
                   position === COMMUNITY_CHEST_2 ||
                   position === KRONOS ||
-                  position === CHANCES_2
+                  position === CHANCES_2 ||
+                  position === RIP
                 ) && (
                   <button
                     id="cardBtn"

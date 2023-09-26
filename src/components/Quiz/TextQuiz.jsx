@@ -4,52 +4,23 @@ import Timer, { MemoryTimer, points } from "../utils/Timer";
 import axios from "axios";
 import { payRent } from "../utils/payRent";
 
-const txtQzObj = {
-  quizTitle: "Memory_Quiz",
-  quizQuestion:
-    "<img src=https://drive.google.com/uc?export=view&id=1ia5zLrPzoSX_rFcucKQD87FYgy07L6wl class='imgElem'/>",
-};
-
-function changeState() {
-  console.log("changeState");
-}
-
-const currentParticipant = {
-  a: "currentParticipant",
-};
-
-const next = () => {
-  console.log("next");
-};
-const property = {
-  a: "property",
-};
-
-function TextQuiz(
-  {
-    // changeState,
-    // currentParticipant,
-    // property,
-    // next,
-    // txtQzObj,
-  }
-) {
+function TextQuiz({
+  changeState,
+  currentParticipant,
+  property,
+  next,
+  txtQzObj,
+}) {
   const [option, setOption] = useState(false);
-  const [memory, setMemory] = useState(true);
   let pts = 0;
-  function toggleMemory() {
-    console.log("inside toggle");
-    setMemory((prev) => !prev);
-  }
 
   const crtOpt = useRef(false);
 
-  var done = 1;
-  console.log(txtQzObj);
   function checkAnagram() {
     return property.propertyName === "Tech Anagrams";
   }
   function finalize() {
+    checkAnagram() && window.alert(`The answer is : ${txtQzObj.Answer}!!`);
     pts = checkAnagram() ? (crtOpt.current ? points() : 0) : pts;
     axios
       .post(
@@ -63,7 +34,9 @@ function TextQuiz(
       )
       .then((r) => {
         console.log(r.data);
-        !crtOpt.current && payRent(currentParticipant, property);
+        checkAnagram() &&
+          !crtOpt.current &&
+          payRent(currentParticipant, property);
       });
     crtOpt.current && next();
     console.log("value of crtOpt", crtOpt);
@@ -71,10 +44,7 @@ function TextQuiz(
   }
   function validateQuiz(event) {
     if (checkAnagram()) {
-      if (
-        event.target.value.toLowerCase() ===
-        txtQzObj?.correctAnswer.toLowerCase()
-      ) {
+      if (event.target.value.toLowerCase() === txtQzObj?.Answer.toLowerCase()) {
         crtOpt.current = true;
         event.target.classList.add("correct-option");
         console.log("hit");
@@ -103,25 +73,19 @@ function TextQuiz(
         <div className="quiz-timer">
           <span className="counter">
             {txtQzObj && checkAnagram() && <Timer option={option} />}
-            {txtQzObj && !checkAnagram() && (
-              <MemoryTimer toggleMemory={toggleMemory} />
-            )}
+            {txtQzObj && <Timer option={option} />}
           </span>
           secs
         </div>
       </div>
       <span className="divider"></span>
       <div className="quiz-arena">
-        {/* {memory && (
-          <div
-            className="qn-area"
-            style={{ textAlign: "center" }}
-            dangerouslySetInnerHTML={{ __html: txtQzObj?.quizQuestion }}
-          >
-            {txtQzObj?.quizQuestion}
-          </div>
-        )} */}
-        {memory && <div className="qn-area">Hello</div>}
+        <div
+          className="qn-area"
+          style={{ textAlign: "center" }}
+          dangerouslySetInnerHTML={{ __html: txtQzObj?.quizQuestion }}
+        ></div>
+
         <div className="options-area">
           <input
             type="text"
@@ -131,11 +95,6 @@ function TextQuiz(
             onChange={validateQuiz}
           />
         </div>
-        {!memory && !checkAnagram() && (
-          <button type="button" className="btn" onClick={setMemory(() => true)}>
-            Show Answer
-          </button>
-        )}
         <button type="button" className="btn" onClick={finalize}>
           Finalize
         </button>

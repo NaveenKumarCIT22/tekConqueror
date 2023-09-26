@@ -45,6 +45,7 @@ const Board = () => {
   }
   function next() {
     idx.current = (idx.current + 1) % part.length;
+    setChzObj("");
     setPart((prev) => [...prev]);
   }
   function displayParticipant(p, cur, isCurPlyr) {
@@ -414,7 +415,10 @@ const Board = () => {
               </div>
               <div className="space chance">
                 <div className="container">
-                  <div className="name">Codeacy</div>
+                  <div className="name">
+                    RIP <br />
+                    🪦
+                  </div>
                   {part && displayerUtil(10)}
                 </div>
               </div>
@@ -532,7 +536,7 @@ const Board = () => {
               </div>
               <div className="space chance">
                 <div className="container">
-                  <div className="name">Do or Die</div>
+                  <div className="name">Tongue Twister</div>
                   {part && displayerUtil(29)}
                 </div>
               </div>

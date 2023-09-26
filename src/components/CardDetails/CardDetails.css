@@ -37,3 +37,10 @@ button[disabled] {
   font-size: 1.3em;
   cursor: pointer;
 }
+
+.chz-wrapper{
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 10px;
+}

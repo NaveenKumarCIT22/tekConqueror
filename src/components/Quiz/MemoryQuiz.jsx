@@ -2,27 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Quiz.css";
 import Timer, { MemoryTimer, points } from "../utils/Timer";
 import axios from "axios";
-
-// const txtQzObj = {
-//   quizTitle: "Memory_Quiz",
-//   quizQuestion:
-//     "<img src=https://drive.google.com/uc?export=view&id=1ia5zLrPzoSX_rFcucKQD87FYgy07L6wl class='imgElem'/>",
-// };
-
-// function changeState() {
-//   console.log("changeState");
-// }
-
-// const currentParticipant = {
-//   a: "currentParticipant",
-// };
-
-// const next = () => {
-//   console.log("next");
-// };
-// const property = {
-//   a: "property",
-// };
+import { payRent } from "../utils/payRent";
 
 function MemoryQuiz({ changeState, currentParticipant, next, txtQzObj }) {
   const [memory, setMemory] = useState(true);
@@ -46,6 +26,7 @@ function MemoryQuiz({ changeState, currentParticipant, next, txtQzObj }) {
       .then((r) => {
         console.log(r.data);
       });
+    pts === 0 && payRent(currentParticipant, property);
     next();
     changeState();
   }
@@ -57,9 +38,6 @@ function MemoryQuiz({ changeState, currentParticipant, next, txtQzObj }) {
     <div className="quiz-container">
       <div className="quiz-title-pane">
         <div className="quiz-title">{txtQzObj?.quizTitle}</div>
-        {/* <div className="quiz-disclaimer">
-          Double click the option to select it
-        </div> */}
         <div className="quiz-timer">
           <span className="counter">
             {txtQzObj && <MemoryTimer toggleMemory={toggleMemory} />}
