@@ -34,7 +34,8 @@ function Quiz({ changeState, currentParticipant, property, next }) {
   } else if (
     property.propertyName === "Memory Game" ||
     property.propertyName === "Connections" ||
-    property.propertyName === "Sales Pitch"
+    property.propertyName === "Sales Pitch" ||
+    property.propertyName !== "Panchathanthiram"
   ) {
     return (
       <MemoryQuiz

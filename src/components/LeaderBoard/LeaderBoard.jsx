@@ -50,7 +50,8 @@ function LeaderBoard() {
       )
       .then((r) => setLeaders(() => r.data.slice(0, 5)));
   }, []);
-  leaders && leaders.sort((a, b) => b.points - a.points);
+  leaders && leaders.sort((a, b) => parseInt(b.points) - parseInt(a.points));
+  console.log(leaders);
   return (
     <div className="leader-board-container">
       <div className="leader-board-inner-container">
@@ -61,6 +62,7 @@ function LeaderBoard() {
         <div className="leaders leaders-header">
           <div className="leader-team-rank">Rank</div>
           <div className="leader-team-name">Team Name</div>
+          <div className="leader-team-points">Balance</div>
           <div className="leader-team-points">Points</div>
         </div>
         <div className="leader-board-arena">
@@ -86,10 +88,10 @@ function LeaderBoard() {
                     {ele.teamName}
                   </div>
                   <div className="leader-team-points" key={crypto.randomUUID()}>
-                    {ele.propertiesOwned
-                      ? parseInt(ele.points) +
-                        parseInt(ele.propertiesOwned.length)
-                      : parseInt(ele.points)}
+                    {ele.balance}
+                  </div>
+                  <div className="leader-team-points" key={crypto.randomUUID()}>
+                    {ele.points}
                   </div>
                 </div>
               );

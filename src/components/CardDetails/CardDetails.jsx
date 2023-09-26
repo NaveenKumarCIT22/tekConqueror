@@ -3,7 +3,13 @@ import "./CardDetails.css";
 import Quiz from "../Quiz/Quiz";
 import axios from "axios";
 
-function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
+function CardDetails({
+  propertyInfo,
+  currentParticipant,
+  chzObj,
+  next,
+  changeBalance,
+}) {
   const [isQuiz, setIsQuiz] = useState(false);
   const [msg, setMsg] = useState();
   const GO_BOX = 0;
@@ -33,7 +39,7 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
         }
       )
       .then((r) => {
-        setMsg(() => r.data);
+        changeBalance(r.data.balance);
       });
   }
   function handleClick(e) {

@@ -175,6 +175,21 @@ const Board = () => {
     part && getPropertyAtPosition(part[idx.current].position);
   }, [part]);
 
+  function changeBalance(bal) {
+    setPart((prev) => {
+      return prev.map((p) => {
+        if (p === part[idx.current]) {
+          return {
+            ...p,
+            balance: parseInt(bal),
+          };
+        } else {
+          return p;
+        }
+      });
+    });
+  }
+
   function rollDice() {
     axios
       .post(
@@ -239,6 +254,7 @@ const Board = () => {
                   chzObj={chzObj}
                   propertyInfo={propertyInfo}
                   next={next}
+                  changeBalance={changeBalance}
                 />
               )}
               <div

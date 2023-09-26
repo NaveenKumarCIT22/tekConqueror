@@ -48,12 +48,10 @@ const StatsPane = ({ activeParticipant }) => {
             );
           })}
         </ol>
-        <p className="account-balance">
-          Balance Amount: {activeParticipant.balance}
-        </p>
+        <p className="account-balance"></p>
         {/* // part-color : participant color */}
 
-        <p className="account-balance">Points: {activeParticipant.points}</p>
+        <p className="account-balance"></p>
         <ul className="properties-owned">
           {activeParticipant.propertiesOwned &&
             activeParticipant.propertiesOwned.map((prop) => {
