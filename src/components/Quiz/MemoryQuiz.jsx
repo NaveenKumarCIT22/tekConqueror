@@ -26,13 +26,10 @@ function MemoryQuiz({ changeState, currentParticipant, next, txtQzObj }) {
       .then((r) => {
         console.log(r.data);
       });
-    pts === 0 && payRent(currentParticipant, property);
     next();
     changeState();
   }
-  function validateQuiz(event) {
-    pts = parseInt(event.target.value);
-  }
+  function validateQuiz(event) {}
 
   return (
     <div className="quiz-container">

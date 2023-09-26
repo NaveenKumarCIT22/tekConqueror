@@ -10,8 +10,6 @@ import Footer from "./components/Footer/Footer";
 import LeaderBoard from "./components/LeaderBoard/LeaderBoard";
 import Chance from "./components/Quiz/Chance";
 import TextQuiz from "./components/Quiz/TextQuiz";
-import test from "./components/test";
-import Test from "./components/test";
 import MemoryQuiz from "./components/Quiz/MemoryQuiz";
 
 axios.defaults.baseURL = "http://localhost:3000/";
@@ -30,7 +28,6 @@ const App = () => {
           <Route path="/chance" element={<Chance />} />
           <Route path="/textquiz" element={<TextQuiz />} />
           <Route path="/card" element={<CardDetails />} />
-          <Route path="/test" element={<Test />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ParticipantList>

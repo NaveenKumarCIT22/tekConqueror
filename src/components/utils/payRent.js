@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export function payRent(currentParticipant, property) {
+  console.log("inside payrent");
   axios
     .post(
       "/rent",

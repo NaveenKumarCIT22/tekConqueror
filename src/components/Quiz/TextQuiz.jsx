@@ -34,9 +34,8 @@ function TextQuiz({
       )
       .then((r) => {
         console.log(r.data);
-        checkAnagram() &&
-          !crtOpt.current &&
-          payRent(currentParticipant, property);
+        (checkAnagram() && checkAnagram && !crtOpt.current) ||
+          (pts === 0 && payRent(currentParticipant, property));
       });
     crtOpt.current && next();
     console.log("value of crtOpt", crtOpt);
