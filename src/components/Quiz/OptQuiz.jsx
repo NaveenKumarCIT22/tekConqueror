@@ -31,7 +31,6 @@ function OptQuiz({ changeState, currentParticipant, property, next, qzObj }) {
         !crtOpt.current && payRent(currentParticipant, property);
       });
     crtOpt.current && next();
-    console.log("value of crtOpt", crtOpt);
     changeState();
   }
   function validateQuiz(event) {
@@ -46,7 +45,6 @@ function OptQuiz({ changeState, currentParticipant, property, next, qzObj }) {
     ) {
       crtOpt.current = true;
       event.target.classList.add("correct-option");
-      console.log("hit");
       event.target.classList.remove("wrong-option");
       setOption(() => true);
     } else {
@@ -65,6 +63,7 @@ function OptQuiz({ changeState, currentParticipant, property, next, qzObj }) {
   //     }
   //   }, 1000);
   var cond = qzObj && qzObj.explanation && expl;
+  const secs = property.category === "Tech" ? 30 : 60;
   useEffect(() => {
     // setExpl(()=>)
     cond = qzObj && qzObj.explanation && expl;
@@ -81,7 +80,10 @@ function OptQuiz({ changeState, currentParticipant, property, next, qzObj }) {
           <></>
         ) : (
           <div className="quiz-timer">
-            <span className="counter">{<Timer option={option} />}</span>secs
+            <span className="counter">
+              {<Timer option={option} seconds={secs} />}
+            </span>
+            secs
           </div>
         )}
       </div>

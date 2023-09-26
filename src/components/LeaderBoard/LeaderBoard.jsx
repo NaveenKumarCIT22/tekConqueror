@@ -86,7 +86,10 @@ function LeaderBoard() {
                     {ele.teamName}
                   </div>
                   <div className="leader-team-points" key={crypto.randomUUID()}>
-                    {ele.points}
+                    {ele.propertiesOwned
+                      ? parseInt(ele.points) +
+                        parseInt(ele.propertiesOwned.length)
+                      : parseInt(ele.points)}
                   </div>
                 </div>
               );

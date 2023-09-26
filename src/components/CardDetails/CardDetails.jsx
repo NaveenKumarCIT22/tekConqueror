@@ -18,7 +18,6 @@ function CardDetails({ propertyInfo, currentParticipant, chzObj, next }) {
   const RIP = 10;
 
   const { owner, price, category, propertyName, position } = propertyInfo;
-  console.log(propertyInfo);
   function changeState() {
     setIsQuiz((prev) => !prev);
   }

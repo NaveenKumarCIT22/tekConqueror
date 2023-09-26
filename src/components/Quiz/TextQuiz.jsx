@@ -38,7 +38,6 @@ function TextQuiz({
           (pts === 0 && payRent(currentParticipant, property));
       });
     crtOpt.current && next();
-    console.log("value of crtOpt", crtOpt);
     changeState();
   }
   function validateQuiz(event) {
@@ -46,12 +45,10 @@ function TextQuiz({
       if (event.target.value.toLowerCase() === txtQzObj?.Answer.toLowerCase()) {
         crtOpt.current = true;
         event.target.classList.add("correct-option");
-        console.log("hit");
         event.target.classList.remove("wrong-option");
         setOption(() => true);
       } else {
         crtOpt.current = false;
-        console.log("wrong hit");
         event.target.classList.add("wrong-option");
         event.target.classList.remove("correct-option");
         setOption(() => true);

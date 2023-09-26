@@ -22,7 +22,6 @@ function Quiz({ changeState, currentParticipant, property, next }) {
       });
   }, []);
   if (qzObj && qzObj.quizOptions) {
-    console.log("true");
     return (
       <OptQuiz
         changeState={changeState}
@@ -46,7 +45,6 @@ function Quiz({ changeState, currentParticipant, property, next }) {
       />
     );
   } else {
-    console.log(property.propertyName);
     return (
       <TextQuiz
         changeState={changeState}

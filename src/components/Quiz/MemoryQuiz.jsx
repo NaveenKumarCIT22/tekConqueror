@@ -8,7 +8,6 @@ function MemoryQuiz({ changeState, currentParticipant, next, txtQzObj }) {
   const [memory, setMemory] = useState(true);
   let pts = 0;
   function toggleMemory() {
-    console.log("inside toggle");
     setMemory((prev) => !prev);
   }
 

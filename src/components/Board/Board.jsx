@@ -137,7 +137,6 @@ const Board = () => {
       });
   }
   function getPropertyAtPosition(position) {
-    console.log(position);
     axios
       .post(
         "/getProp",
@@ -149,9 +148,7 @@ const Board = () => {
         }
       )
       .then((r) => {
-        console.log(r.data.property);
         setPropertyInfo(() => r.data.property);
-        console.log("propinfo", propertyInfo);
       })
       .catch((e) => {
         console.log(e);
@@ -190,12 +187,14 @@ const Board = () => {
         }
       )
       .then((r) => {
+        console.log(r.data);
         setPart((prev) => {
           return prev.map((p) => {
             if (p === part[idx.current]) {
               return {
                 ...p,
                 position: r.data.position,
+                balance: parseInt(r.data.balance),
               };
             } else {
               return p;
